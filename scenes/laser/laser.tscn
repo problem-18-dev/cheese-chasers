@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://fxwrc0ikq7we"]
+
+[ext_resource type="PackedScene" uid="uid://cjn5v33k7elr5" path="res://scenes/projectile/projectile.tscn" id="1_j8ec3"]
+[ext_resource type="Texture2D" uid="uid://dmfpal1q5d1of" path="res://assets/sprites/laser_projectile.png" id="2_kfde8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx1b7"]
+size = Vector2(4, 16)
+
+[node name="Laser" unique_id=1334999182 instance=ExtResource("1_j8ec3")]
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
+shape = SubResource("RectangleShape2D_bx1b7")
+
+[node name="Sprite2D" parent="." index="1" unique_id=872718839]
+texture = ExtResource("2_kfde8")

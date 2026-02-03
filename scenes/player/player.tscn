@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://chvovwj01dkn5"]
+
+[ext_resource type="Texture2D" uid="uid://bg76dg7na3c21" path="res://assets/sprites/player.png" id="1_8afob"]
+[ext_resource type="Script" uid="uid://doiaxmcio4s32" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="PackedScene" uid="uid://fxwrc0ikq7we" path="res://scenes/laser/laser.tscn" id="2_gmlin"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8afob"]
+radius = 7.0
+height = 16.0
+
+[node name="Player" type="RigidBody2D" unique_id=1918345498]
+collision_mask = 0
+angular_damp = 1.0
+script = ExtResource("1_dovo2")
+projectile_scene = ExtResource("2_gmlin")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1454155125]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_8afob")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=593822152]
+texture_filter = 1
+texture = ExtResource("1_8afob")
+
+[node name="LeftGunMarker2D" type="Marker2D" parent="." unique_id=1870435177]
+position = Vector2(-5, 0)
+
+[node name="RightGunMarker2D" type="Marker2D" parent="." unique_id=284118922]
+position = Vector2(5, 0)
