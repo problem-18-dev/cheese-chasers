@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://dmk75r41xesgm"]
+[gd_scene format=3 uid="uid://dejegekgg70cr"]
 
-[ext_resource type="Script" uid="uid://cjqtaltuhiqsk" path="res://scenes/floater/floater.gd" id="1_snpk7"]
+[ext_resource type="Script" uid="uid://cn7v805cw2s2i" path="res://scenes/floater/floater.gd" id="1_snpk7"]
 
-[node name="Floater" type="RigidBody2D" unique_id=2075315652]
+[node name="Floater" type="RigidBody2D" unique_id=143555453]
 script = ExtResource("1_snpk7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1315043082]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1915036605]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2034473013]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=207237131]

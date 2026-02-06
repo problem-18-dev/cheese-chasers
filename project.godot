@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Cheese Chasers"
 config/version="1.0"
+run/main_scene="uid://cbe6uahctmh8q"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -61,6 +62,8 @@ move_forward={
 
 3d/physics_engine="Jolt Physics"
 2d/default_gravity=0.0
+2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0
 
 [rendering]
 

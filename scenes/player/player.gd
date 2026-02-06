@@ -5,13 +5,18 @@ const FORCE_MULTIPLIER := 100.0
 
 @export_category("Speeds")
 @export var acceleration_force := 120.0
-@export var turn_force := 200.0
+@export var turn_force := 7.5
 
 @export_category("Effects")
-@export var shoot_recoil := 10.0
+@export var shoot_recoil := 5.0
 
 @export_category("Projectile")
 @export var projectile_scene: PackedScene
+@export var shoot_cooldown := 0.15
+
+var _can_shoot := true
+
+@onready var cooldown_timer: Timer = $CooldownTimer
 
 
 func _physics_process(delta: float) -> void:
@@ -20,11 +25,11 @@ func _physics_process(delta: float) -> void:
 		apply_force(force * delta)
 		
 	var turn_direction := Input.get_axis("turn_left", "turn_right")
-	apply_torque(turn_direction * turn_force * FORCE_MULTIPLIER * delta)
+	rotate(turn_direction * turn_force  * delta)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot"):
+	if event.is_action_pressed("shoot") and _can_shoot:
 		_shoot()
 
 
@@ -38,3 +43,11 @@ func _shoot() -> void:
 	
 	# Apply firing recoil
 	apply_impulse(shoot_recoil * Vector2.UP.rotated(rotation))
+	
+	# Start cooldown
+	_can_shoot = false
+	cooldown_timer.start(shoot_cooldown)
+
+
+func _on_cooldown_timer_timeout() -> void:
+	_can_shoot = true

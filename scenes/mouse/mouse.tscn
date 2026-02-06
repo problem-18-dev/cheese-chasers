@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://22uxqujkorfl"]
+
+[ext_resource type="Texture2D" uid="uid://dd8gj36fjjl3h" path="res://assets/sprites/mouse.png" id="1_61wxo"]
+[ext_resource type="Script" uid="uid://cx4bx2glg0tfn" path="res://scenes/mouse/mouse.gd" id="1_lrwgp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrwgp"]
+size = Vector2(7.5, 12)
+
+[node name="Mouse" type="RigidBody2D" unique_id=1683578551 groups=["mice"]]
+collision_layer = 2
+script = ExtResource("1_lrwgp")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1383736863]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_lrwgp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1773987172]
+position = Vector2(0.5, 0)
+texture = ExtResource("1_61wxo")

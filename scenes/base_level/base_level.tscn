@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://d355e3q6xiox"]
+
+[ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="1_8hega"]
+[ext_resource type="Script" uid="uid://dcascajx5fmg0" path="res://scenes/base_level/base_level.gd" id="1_k2up0"]
+
+[sub_resource type="Curve2D" id="Curve2D_k2up0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="BaseLevel" type="Node" unique_id=539995243]
+script = ExtResource("1_k2up0")
+
+[node name="SpawnPath" type="Path2D" parent="." unique_id=521085597]
+curve = SubResource("Curve2D_k2up0")
+
+[node name="SpawnLocation" type="PathFollow2D" parent="SpawnPath" unique_id=1744936178]
+
+[node name="Mice" type="Node" parent="." unique_id=971192592]
+
+[node name="Player" parent="." unique_id=1918345498 instance=ExtResource("1_8hega")]
+position = Vector2(320, 128)
+lock_rotation = true
