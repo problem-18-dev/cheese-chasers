@@ -34,11 +34,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _shoot() -> void:
-	var projectile_left: Projectile = projectile_scene.instantiate()
 	var projectile_right: Projectile = projectile_scene.instantiate()
-	projectile_left.start($LeftGunMarker2D.global_position, rotation)
 	projectile_right.start($RightGunMarker2D.global_position, rotation)
-	get_tree().root.add_child(projectile_left)
 	get_tree().root.add_child(projectile_right)
 	
 	# Apply firing recoil
