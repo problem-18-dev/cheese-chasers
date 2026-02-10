@@ -27,8 +27,8 @@ func _spawn_mice() -> void:
 		var direction := Vector2(1, 0).rotated(direction_rotation)
 		
 		# Spawn
-		mouse.start(position, direction, 3)
 		mouse.hit.connect(_on_mouse_hit)
+		mouse.start(position, direction, 3)
 		_mice.add_child(mouse)
 		
 
@@ -37,6 +37,6 @@ func _on_mouse_hit(hit_position: Vector2, direction: Vector2, scale: int, count:
 		var mouse := _mouse_scene.instantiate()
 		var spawn_rotation := randf_range(-PI / 2,  PI / 2)
 		var spawn_direction := direction.rotated(spawn_rotation)
-		mouse.start(hit_position, spawn_direction, scale - 1)
 		mouse.hit.connect(_on_mouse_hit)
-		_mice.add_child(mouse)
+		mouse.start(hit_position, spawn_direction, scale - 1)
+		_mice.call_deferred("add_child", mouse)

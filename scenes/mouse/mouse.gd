@@ -15,9 +15,15 @@ signal hit(position: Vector2, direction: Vector2, scale: int, mice_on_death: int
 @export var mice_on_death := 2
 
 var _scale: int
+var _direction: Vector2
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
+
+
+func _ready() -> void:
+	super()
+	sprite_2d.rotation = Vector2.UP.angle_to(_direction)
 
 
 func start(start_position: Vector2, start_direction: Vector2, start_scale: int) -> void:
@@ -26,7 +32,7 @@ func start(start_position: Vector2, start_direction: Vector2, start_scale: int) 
 	
 	position = start_position
 	linear_velocity = start_direction * speed
-	angular_velocity = randf_range(min_rotation, max_rotation)
+	_direction = start_direction
 	
 
 func take_damage() -> void:
@@ -42,7 +48,7 @@ func _change_size(start_scale: int) -> void:
 	var old_shape: Vector2 = $CollisionShape2D.shape.size
 	var new_shape := RectangleShape2D.new()
 	new_shape.size = Vector2(old_shape.x * start_scale, old_shape.y * start_scale)
-	$CollisionShape2D.shape = new_shape
+	$CollisionShape2D.set_deferred("shape", new_shape)
 	
 	# Scale texture
 	$Sprite2D.apply_scale(Vector2(start_scale, start_scale))
