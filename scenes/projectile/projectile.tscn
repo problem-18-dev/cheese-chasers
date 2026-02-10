@@ -11,13 +11,7 @@ script = ExtResource("1_t8015")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=872718839]
 
-[node name="DestroyTimer" type="Timer" parent="." unique_id=1125000091]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1790842771]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

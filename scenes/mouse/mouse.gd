@@ -1,7 +1,7 @@
 extends Floater
 
 
-signal hit(position: Vector2, direction: Vector2, scale: int, mice_on_death: int)
+signal hit(position: Vector2, scale: int, mice_on_death: int, run_from: Vector2)
 
 @export_category("Movement")
 @export var min_speed := 50.0
@@ -23,7 +23,9 @@ var _direction: Vector2
 
 func _ready() -> void:
 	super()
-	sprite_2d.rotation = Vector2.UP.angle_to(_direction)
+	var new_rotation := Vector2.UP.angle_to(_direction)
+	sprite_2d.rotate(new_rotation)
+	collision_shape_2d.rotate(new_rotation)
 
 
 func start(start_position: Vector2, start_direction: Vector2, start_scale: int) -> void:
@@ -35,11 +37,12 @@ func start(start_position: Vector2, start_direction: Vector2, start_scale: int) 
 	_direction = start_direction
 	
 
-func take_damage() -> void:
+func take_damage(run_from = null) -> void:
 	if _scale > 1:
-		hit.emit(position, linear_velocity.normalized(), _scale, mice_on_death)
+		hit.emit(position, _scale, mice_on_death, run_from)
 		
 	queue_free()
+
 
 func _change_size(start_scale: int) -> void:
 	assert(start_scale > 0, "Starting scale for mouse is invalid.")

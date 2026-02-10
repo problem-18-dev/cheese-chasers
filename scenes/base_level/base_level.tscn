@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d355e3q6xiox"]
 
-[ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="1_8hega"]
 [ext_resource type="Script" uid="uid://dcascajx5fmg0" path="res://scenes/base_level/base_level.gd" id="1_k2up0"]
+[ext_resource type="PackedScene" uid="uid://chc3purvou568" path="res://game/shake_camera/shake_camera_2d.tscn" id="3_jlp5g"]
 
 [sub_resource type="Curve2D" id="Curve2D_k2up0"]
 _data = {
@@ -12,13 +12,26 @@ point_count = 5
 [node name="BaseLevel" type="Node" unique_id=539995243]
 script = ExtResource("1_k2up0")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=112092133]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.55554
+offset_top = -47.0
+offset_right = 83.55554
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ShakeCamera2D" parent="." unique_id=1356034144 instance=ExtResource("3_jlp5g")]
+
 [node name="SpawnPath" type="Path2D" parent="." unique_id=521085597]
 curve = SubResource("Curve2D_k2up0")
 
 [node name="SpawnLocation" type="PathFollow2D" parent="SpawnPath" unique_id=1744936178]
 
-[node name="Mice" type="Node" parent="." unique_id=971192592]
+[node name="PlayerSpawnPosition" type="Marker2D" parent="." unique_id=1307384252]
+position = Vector2(310, 180)
 
-[node name="Player" parent="." unique_id=1918345498 instance=ExtResource("1_8hega")]
-position = Vector2(320, 128)
-lock_rotation = true
+[node name="Mice" type="Node" parent="." unique_id=971192592]

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fxwrc0ikq7we"]
 
 [ext_resource type="PackedScene" uid="uid://cjn5v33k7elr5" path="res://scenes/projectile/projectile.tscn" id="1_j8ec3"]
+[ext_resource type="Script" uid="uid://bnx3m1u733eri" path="res://scenes/laser/laser.gd" id="2_bx1b7"]
 [ext_resource type="Texture2D" uid="uid://dmfpal1q5d1of" path="res://assets/sprites/laser_projectile.png" id="2_kfde8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bx1b7"]
@@ -8,9 +9,31 @@ size = Vector2(4, 16)
 
 [node name="Laser" unique_id=1334999182 instance=ExtResource("1_j8ec3")]
 collision_mask = 2
+script = ExtResource("2_bx1b7")
+speed = 225.0
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
+position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_bx1b7")
 
-[node name="Sprite2D" parent="." index="1" unique_id=872718839]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="1" unique_id=1015172075]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_bx1b7")
+
+[node name="Sprite2D" parent="." index="2" unique_id=872718839]
+position = Vector2(-8, 0)
 texture = ExtResource("2_kfde8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." index="3" unique_id=1961896349]
+position = Vector2(8, 0)
+texture = ExtResource("2_kfde8")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="4" unique_id=1790842771]
+rect = Rect2(-6, -8, 12, 16)
+
+[node name="DestroyTimer" type="Timer" parent="." index="5" unique_id=2102698245]
+wait_time = 1.75
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

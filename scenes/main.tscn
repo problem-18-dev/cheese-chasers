@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://cbe6uahctmh8q"]
 
-[ext_resource type="PackedScene" uid="uid://d355e3q6xiox" path="res://scenes/base_level/base_level.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://c2x4i80nhsrlw" path="res://scenes/main.gd" id="1_o5qli"]
 
 [node name="Main" type="Node" unique_id=109043519]
-
-[node name="Scene" type="Node" parent="." unique_id=1681916975]
-
-[node name="BaseLevel" parent="Scene" unique_id=539995243 instance=ExtResource("1_o5qli")]
+script = ExtResource("1_o5qli")

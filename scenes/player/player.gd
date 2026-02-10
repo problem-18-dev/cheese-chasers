@@ -1,6 +1,8 @@
 extends Floater
 
 
+signal hit
+
 const FORCE_MULTIPLIER := 100.0
 
 @export_category("Speeds")
@@ -19,7 +21,7 @@ var _can_shoot := true
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var gun_marker_2d: Marker2D = $GunMarker2D
 
 
 func _physics_process(delta: float) -> void:
@@ -36,10 +38,14 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_shoot()
 
 
+func start(start_position: Vector2) -> void:
+	position = start_position
+
+
 func _shoot() -> void:
-	var projectile_right: Projectile = projectile_scene.instantiate()
-	projectile_right.start($RightGunMarker2D.global_position, rotation)
-	get_tree().root.add_child(projectile_right)
+	var projectile: Projectile = projectile_scene.instantiate()
+	projectile.start(gun_marker_2d.global_position, rotation)
+	get_tree().root.add_child(projectile)
 	
 	# Apply firing recoil
 	apply_impulse(shoot_recoil * Vector2.UP.rotated(rotation))
@@ -51,6 +57,7 @@ func _shoot() -> void:
 
 func _take_damage() -> void:
 	animation_player.play("take_damage")
+	hit.emit()
 
 
 func _on_cooldown_timer_timeout() -> void:
@@ -62,4 +69,4 @@ func _on_body_entered(body: Node) -> void:
 		return
 		
 	_take_damage()
-	body.take_damage()
+	body.take_damage(position)

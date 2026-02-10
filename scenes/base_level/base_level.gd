@@ -5,12 +5,22 @@ extends Node
 @export var start_mice := 3
 
 @onready var _mouse_scene: PackedScene = load("res://scenes/mouse/mouse.tscn")
+@onready var _player_scene: PackedScene = load("res://scenes/player/player.tscn")
 @onready var _spawn_marker: PathFollow2D = $SpawnPath/SpawnLocation
 @onready var _mice: Node = $Mice
+@onready var shake_camera_2d: Camera2D = $ShakeCamera2D
 
 
 func _ready() -> void:
+	_spawn_player()
 	_spawn_mice()
+
+
+func _spawn_player() -> void:
+	var player := _player_scene.instantiate()
+	player.start($PlayerSpawnPosition.position)
+	player.hit.connect(_on_player_hit)
+	add_child(player)
 
 
 func _spawn_mice() -> void:
@@ -32,11 +42,25 @@ func _spawn_mice() -> void:
 		_mice.add_child(mouse)
 		
 
-func _on_mouse_hit(hit_position: Vector2, direction: Vector2, scale: int, count: int) -> void:
+func _on_mouse_hit(hit_position: Vector2, scale: int, count: int, run_from = null) -> void:
 	for i in count:
 		var mouse := _mouse_scene.instantiate()
-		var spawn_rotation := randf_range(-PI / 2,  PI / 2)
-		var spawn_direction := direction.rotated(spawn_rotation)
+		
+		# Run away from player, else random direction
+		var spawn_rotation: float
+		var spawn_direction: Vector2
+		if run_from:
+			spawn_rotation = randf_range(-PI / 4, PI / 4)
+			var direction_to_player := hit_position.direction_to(run_from)
+			spawn_direction = direction_to_player.rotated(PI + spawn_rotation)
+		else:
+			spawn_rotation = randf_range(-PI,  PI)
+			spawn_direction = Vector2.UP.rotated(spawn_rotation)
+		
 		mouse.hit.connect(_on_mouse_hit)
 		mouse.start(hit_position, spawn_direction, scale - 1)
 		_mice.call_deferred("add_child", mouse)
+
+
+func _on_player_hit() -> void:
+	shake_camera_2d.small_shake()
