@@ -4,20 +4,40 @@
 [ext_resource type="Script" uid="uid://bnx3m1u733eri" path="res://scenes/laser/laser.gd" id="2_bx1b7"]
 [ext_resource type="Texture2D" uid="uid://dmfpal1q5d1of" path="res://assets/sprites/laser_projectile.png" id="2_kfde8"]
 
+[sub_resource type="Curve" id="Curve_kfde8"]
+_data = [Vector2(0, 0.5016429), 0.0, 2.8104074, 0, 0, Vector2(0.24709302, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bx1b7"]
+curve = SubResource("Curve_kfde8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kfde8"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_bx1b7")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bx1b7"]
-size = Vector2(4, 16)
+size = Vector2(20, 16)
 
 [node name="Laser" unique_id=1334999182 instance=ExtResource("1_j8ec3")]
 collision_mask = 2
 script = ExtResource("2_bx1b7")
 speed = 225.0
 
-[node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
-position = Vector2(-8, 0)
-shape = SubResource("RectangleShape2D_bx1b7")
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="0" unique_id=1910065240]
+position = Vector2(0, 8)
+amount = 24
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_kfde8")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="1" unique_id=1015172075]
-position = Vector2(8, 0)
+[node name="CollisionShape2D" parent="." index="1" unique_id=2109629548]
 shape = SubResource("RectangleShape2D_bx1b7")
 
 [node name="Sprite2D" parent="." index="2" unique_id=872718839]

@@ -7,7 +7,7 @@ extends Area2D
 
 
 func _physics_process(delta: float) -> void:
-	position += Vector2.DOWN.rotated(rotation) * speed * delta
+	position += Vector2.UP.rotated(rotation) * speed * delta
 
 
 func start(start_position: Vector2, start_rotation: float) -> void:

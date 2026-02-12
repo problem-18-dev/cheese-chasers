@@ -4,6 +4,22 @@
 [ext_resource type="Script" uid="uid://doiaxmcio4s32" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="PackedScene" uid="uid://fxwrc0ikq7we" path="res://scenes/laser/laser.tscn" id="2_gmlin"]
 
+[sub_resource type="Curve" id="Curve_gmlin"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25373137), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lvxji"]
+curve = SubResource("Curve_gmlin")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gmlin"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_lvxji")
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8afob"]
 radius = 13.0
 
@@ -75,16 +91,24 @@ contact_monitor = true
 max_contacts_reported = 1
 linear_damp = 1.0
 script = ExtResource("1_dovo2")
-shoot_recoil = 5.5
 projectile_scene = ExtResource("2_gmlin")
 shoot_cooldown = 0.2
 metadata/_edit_group_ = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=248175173]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_gmlin")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1454155125]
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_8afob")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=593822152]
+position = Vector2(0, -5)
+rotation = -3.1415927
 scale = Vector2(2, 2)
 texture = ExtResource("1_8afob")
 

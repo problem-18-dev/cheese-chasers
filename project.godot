@@ -29,6 +29,11 @@ window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[gui]
+
+theme/custom="uid://bisdp38mca7ob"
+theme/custom_font="uid://bvfirxaia7qj3"
+
 [input]
 
 turn_left={

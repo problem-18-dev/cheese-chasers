@@ -1,0 +1,11 @@
+[gd_resource type="Theme" format=3 uid="uid://bisdp38mca7ob"]
+
+[ext_resource type="FontFile" uid="uid://bvfirxaia7qj3" path="res://assets/fonts/Tiny5-Regular.ttf" id="1_bd1bu"]
+
+[resource]
+default_font = ExtResource("1_bd1bu")
+default_font_size = 16
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8

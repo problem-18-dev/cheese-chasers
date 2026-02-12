@@ -1,7 +1,20 @@
 [gd_scene format=3 uid="uid://d355e3q6xiox"]
 
 [ext_resource type="Script" uid="uid://dcascajx5fmg0" path="res://scenes/base_level/base_level.gd" id="1_k2up0"]
+[ext_resource type="PackedScene" uid="uid://mvi8jy6pwbll" path="res://hud/hud.tscn" id="2_jlp5g"]
 [ext_resource type="PackedScene" uid="uid://chc3purvou568" path="res://game/shake_camera/shake_camera_2d.tscn" id="3_jlp5g"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jlp5g"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(400, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 35.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+color = Color(0.22049159, 0.32780907, 0.4661922, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_k2up0"]
 _data = {
@@ -12,17 +25,34 @@ point_count = 5
 [node name="BaseLevel" type="Node" unique_id=539995243]
 script = ExtResource("1_k2up0")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=112092133]
+[node name="HUD" parent="." unique_id=440610771 instance=ExtResource("2_jlp5g")]
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=494333449]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -83.55554
-offset_top = -47.0
-offset_right = 83.55554
-offset_bottom = 47.0
+offset_left = -26.666687
+offset_top = -15.0
+offset_right = 26.666687
+offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.78352344, 0.78352344, 0.78352326, 1)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=452742632]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=780963981]
+position = Vector2(310, 0)
+amount = 64
+lifetime = 10.0
+preprocess = 10.0
+process_material = SubResource("ParticleProcessMaterial_jlp5g")
 
 [node name="ShakeCamera2D" parent="." unique_id=1356034144 instance=ExtResource("3_jlp5g")]
 

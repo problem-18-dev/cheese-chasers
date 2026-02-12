@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://mvi8jy6pwbll"]
+
+[ext_resource type="Script" uid="uid://cy4os3dn7c6p0" path="res://hud/hud.gd" id="1_2gk58"]
+[ext_resource type="Theme" uid="uid://bisdp38mca7ob" path="res://hud/main_theme.tres" id="1_6ca3a"]
+
+[node name="HUD" type="CanvasLayer" unique_id=440610771]
+script = ExtResource("1_2gk58")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1756310019]
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer" unique_id=1193512732]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = ExtResource("1_6ca3a")
+text = "000000"
+
+[node name="LivesLabel" type="Label" parent="MarginContainer" unique_id=591679253]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Lives: 5"
