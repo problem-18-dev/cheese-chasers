@@ -31,8 +31,9 @@ scale_max = 2.5
 scale_curve = SubResource("CurveTexture_w3nqw")
 color_ramp = SubResource("GradientTexture1D_6vcub")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrwgp"]
-size = Vector2(7.5, 12)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lrwgp"]
+radius = 7.0
+height = 32.0
 
 [node name="Mouse" type="RigidBody2D" unique_id=1683578551 groups=["mice"]]
 collision_layer = 2
@@ -50,10 +51,13 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_xge16")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1383736863]
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_lrwgp")
+position = Vector2(-0.5, 0)
+shape = SubResource("CapsuleShape2D_lrwgp")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1773987172]
 texture_filter = 1
 position = Vector2(0.5, 0)
+scale = Vector2(2, 2)
 texture = ExtResource("1_61wxo")
+
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

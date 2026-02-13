@@ -5,9 +5,17 @@ extends Area2D
 @export_category("Properties")
 @export var speed := 200.0
 
+@onready var screen_size: Vector2
+
+
+func _ready() -> void:
+	screen_size = get_viewport_rect().size
+
 
 func _physics_process(delta: float) -> void:
 	position += Vector2.UP.rotated(rotation) * speed * delta
+	position.x = wrapf(position.x, 0, screen_size.x)
+	position.y = wrapf(position.y, 0, screen_size.y)
 
 
 func start(start_position: Vector2, start_rotation: float) -> void:

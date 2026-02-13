@@ -29,16 +29,17 @@ func _ready() -> void:
 	var new_rotation := Vector2.UP.angle_to(_direction)
 	sprite_2d.rotate(new_rotation)
 	collision_shape_2d.rotate(new_rotation)
-	_scale_up()
+	_change_scale(_scale)
+	_spawn_animation()
 
 
-func start(start_position: Vector2, start_direction: Vector2, start_scale: int) -> void:
-	_change_size(start_scale)
+func start(start_position: Vector2, start_direction: Vector2, new_scale: int) -> void:
 	var speed := randf_range(min_speed, max_speed)
 	
 	position = start_position
 	linear_velocity = start_direction * speed
 	_direction = start_direction
+	_scale = new_scale
 	
 
 func take_damage(run_from = null) -> void:
@@ -48,9 +49,7 @@ func take_damage(run_from = null) -> void:
 	_add_score()
 	sprite_2d.hide()
 	collision_shape_2d.set_deferred("disabled", true)
-	gpu_particles_2d.emitting = true
-	await gpu_particles_2d.finished
-	queue_free()
+	gpu_particles_2d.emitting = true 
 
 
 func _add_score() -> void:
@@ -58,22 +57,28 @@ func _add_score() -> void:
 	score_added.emit(score_to_add)
 
 
-func _change_size(start_scale: int) -> void:
-	assert(start_scale > 0, "Starting scale for mouse is invalid.")
+func _change_scale(new_scale: int) -> void:
+	assert(new_scale > 0, "Starting scale for mouse is invalid.")
 	
-	# Create new shape
-	var old_shape: Vector2 = $CollisionShape2D.shape.size
-	var new_shape := RectangleShape2D.new()
-	new_shape.size = Vector2(old_shape.x * start_scale, old_shape.y * start_scale)
-	$CollisionShape2D.set_deferred("shape", new_shape)
+	# Scale shape
+	var old_shape: CapsuleShape2D = collision_shape_2d.shape
+	var new_shape := CapsuleShape2D.new()
+	new_shape.radius = old_shape.radius * new_scale
+	new_shape.height = old_shape.height * new_scale
+	collision_shape_2d.set_deferred("shape", new_shape)
 	
 	# Scale texture
-	$Sprite2D.apply_scale(Vector2(start_scale, start_scale))
+	sprite_2d.apply_scale(Vector2(new_scale, new_scale))
 	
-	_scale = start_scale
+	# Scale particles
+	gpu_particles_2d.apply_scale(Vector2(new_scale, new_scale))
 
 
-func _scale_up() -> void:
-	sprite_2d.scale = Vector2.ONE * (_scale - 1)
+func _spawn_animation() -> void:
 	var tween := create_tween()
-	tween.tween_property(sprite_2d, "scale", Vector2.ONE * _scale, 0.2)
+	tween.tween_property(sprite_2d, "scale", Vector2(2, 2) * _scale, 0.2)
+
+
+func _on_gpu_particles_2d_finished() -> void:
+	print("Mouse died!", self)
+	queue_free()

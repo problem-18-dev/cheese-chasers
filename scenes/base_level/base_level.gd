@@ -3,6 +3,7 @@ extends Node
 
 @export_category("Level")
 @export var start_mice := 3
+@export var start_mice_scale := 3
 
 var _score := 0
 
@@ -12,12 +13,19 @@ var _score := 0
 @onready var _mice: Node = $Mice
 @onready var shake_camera_2d: Camera2D = $ShakeCamera2D
 @onready var hud: CanvasLayer = $HUD
+@onready var _total_mice := start_mice
 
 
 func _ready() -> void:
 	_spawn_player()
 	_spawn_mice()
+	
 
+func _process(_delta: float) -> void:
+	var mice_in_game := _mice.get_child_count()
+	if mice_in_game <= 0:
+		_total_mice += 1
+		_spawn_mice()
 
 func _spawn_player() -> void:
 	var player := _player_scene.instantiate()
@@ -27,7 +35,7 @@ func _spawn_player() -> void:
 
 
 func _spawn_mice() -> void:
-	for i in start_mice:
+	for i in _total_mice:
 		var mouse := _mouse_scene.instantiate()
 		
 		# Position
@@ -42,7 +50,7 @@ func _spawn_mice() -> void:
 		# Spawn
 		mouse.hit.connect(_on_mouse_hit)
 		mouse.score_added.connect(_add_score)
-		mouse.start(position, direction, 3)
+		mouse.start(position, direction, start_mice_scale)
 		_mice.add_child(mouse)
 
 

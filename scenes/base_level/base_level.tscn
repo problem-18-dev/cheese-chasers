@@ -24,6 +24,7 @@ point_count = 5
 
 [node name="BaseLevel" type="Node" unique_id=539995243]
 script = ExtResource("1_k2up0")
+start_mice = 1
 
 [node name="HUD" parent="." unique_id=440610771 instance=ExtResource("2_jlp5g")]
 
