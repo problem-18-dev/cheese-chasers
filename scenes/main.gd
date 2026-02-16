@@ -4,14 +4,15 @@ extends Node
 
 signal scene_changed(scene: Scene)
 
-enum Scene { GAME }
+enum Scene { MainMenu, Game }
 
 @export_category("Scenes")
-@export var first_scene := Scene.GAME
+@export var first_scene := Scene.Game
 
 
 var scenes := {
-	Scene.GAME: "res://scenes/base_level/base_level.tscn",
+	Scene.MainMenu: "res://menus/main_menu/main_menu.tscn",
+	Scene.Game: "res://scenes/game/game.tscn",
 }
 
 var current_scene: Node

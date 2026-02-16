@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b31nlydnsaedo"]
+
+[ext_resource type="Script" uid="uid://rd6txplhemjf" path="res://managers/power_ups_manager/power_ups_manager.gd" id="1_hybs0"]
+
+[node name="PowerUpsManager" type="Node" unique_id=324818206]
+script = ExtResource("1_hybs0")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=973070256]
+wait_time = 10.0
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://d355e3q6xiox"]
+
+[ext_resource type="Script" uid="uid://dcascajx5fmg0" path="res://scenes/game/game.gd" id="1_0sr1o"]
+[ext_resource type="PackedScene" uid="uid://mvi8jy6pwbll" path="res://hud/hud.tscn" id="2_kelw5"]
+[ext_resource type="PackedScene" uid="uid://chc3purvou568" path="res://game/shake_camera/shake_camera_2d.tscn" id="3_lfrn8"]
+[ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="4_kelw5"]
+[ext_resource type="PackedScene" uid="uid://b31nlydnsaedo" path="res://managers/power_ups_manager/power_ups_manager.tscn" id="4_lfrn8"]
+[ext_resource type="PackedScene" uid="uid://5sh1tnlhy52g" path="res://scenes/powerup/invincibility_power_up/invincibility_power_up.tscn" id="5_5i0tg"]
+
+[sub_resource type="Animation" id="Animation_kelw5"]
+resource_name = "intro"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_game"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameObjects/Player:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5707964]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameObjects/Player:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(-60, -0.25, 0, 0.25, 0, 320, -0.6666666, -15, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfrn8"]
+_data = {
+&"intro": SubResource("Animation_kelw5")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_k2up0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Game" type="Node" unique_id=539995243]
+process_mode = 3
+script = ExtResource("1_0sr1o")
+
+[node name="HUD" parent="." unique_id=440610771 instance=ExtResource("2_kelw5")]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=95009568]
+libraries/ = SubResource("AnimationLibrary_lfrn8")
+autoplay = &"intro"
+
+[node name="ShakeCamera2D" parent="." unique_id=1356034144 instance=ExtResource("3_lfrn8")]
+
+[node name="PowerUpsManager" parent="." unique_id=324818206 node_paths=PackedStringArray("player", "hud", "spawn_node") instance=ExtResource("4_lfrn8")]
+player = NodePath("../GameObjects/Player")
+hud = NodePath("../HUD")
+spawn_node = NodePath("../GameObjects/PowerUps")
+powerups_to_spawn = Array[PackedScene]([ExtResource("5_5i0tg")])
+powerup_spawn_interval = 1.0
+
+[node name="SpawnPath" type="Path2D" parent="." unique_id=521085597]
+curve = SubResource("Curve2D_k2up0")
+
+[node name="SpawnLocation" type="PathFollow2D" parent="SpawnPath" unique_id=1744936178]
+
+[node name="GameObjects" type="Node" parent="." unique_id=699163195]
+
+[node name="PowerUps" type="Node" parent="GameObjects" unique_id=1423915242]
+
+[node name="Projectiles" type="Node" parent="GameObjects" unique_id=1430002182 groups=["projectiles"]]
+
+[node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
+
+[node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
+position = Vector2(-60, 180)
+rotation = 1.5707964
+
+[connection signal="game_quit" from="HUD" to="." method="_on_hud_game_quit"]
+[connection signal="game_resumed" from="HUD" to="." method="_on_hud_game_resumed"]
+[connection signal="hit" from="GameObjects/Player" to="." method="_on_player_hit"]

@@ -5,33 +5,56 @@ extends Node
 @export var start_mice := 3
 @export var start_mice_scale := 3
 
+var game_started := false
 var _score := 0
 
 @onready var _mouse_scene: PackedScene = load("res://scenes/mouse/mouse.tscn")
-@onready var _player_scene: PackedScene = load("res://scenes/player/player.tscn")
-@onready var _spawn_marker: PathFollow2D = $SpawnPath/SpawnLocation
-@onready var _mice: Node = $Mice
-@onready var shake_camera_2d: Camera2D = $ShakeCamera2D
+@onready var spawn_location: PathFollow2D = $SpawnPath/SpawnLocation
 @onready var hud: CanvasLayer = $HUD
+@onready var shake_camera_2d: Camera2D = $ShakeCamera2D
+@onready var mice: Node = $GameObjects/Mice
+@onready var player: RigidBody2D = $GameObjects/Player
+
+
 @onready var _total_mice := start_mice
 
 
-func _ready() -> void:
-	_spawn_player()
-	_spawn_mice()
-	
-
 func _process(_delta: float) -> void:
-	var mice_in_game := _mice.get_child_count()
+	if not game_started:
+		return
+	
+	var mice_in_game := mice.get_child_count()
 	if mice_in_game <= 0:
 		_total_mice += 1
 		_spawn_mice()
 
-func _spawn_player() -> void:
-	var player := _player_scene.instantiate()
-	player.start($PlayerSpawnPosition.position)
-	player.hit.connect(_on_player_hit)
-	add_child(player)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		_pause_game(not get_tree().paused)
+
+
+func start_game() -> void:
+	hud.show()
+	if GameManager.difficulty == GameManager.Difficulty.Hard:
+		_total_mice += 1
+	_spawn_mice()
+	player.allow_movement();
+	game_started = true
+
+
+func _end_game() -> void:
+	GameManager.save_high_score()
+	hud.end_game()
+
+
+func _pause_game(should_pause := true) -> void:
+	if should_pause:
+		hud.pause_game()
+	else:
+		hud.continue_game()
+		
+	get_tree().paused = should_pause
 
 
 func _spawn_mice() -> void:
@@ -39,19 +62,19 @@ func _spawn_mice() -> void:
 		var mouse := _mouse_scene.instantiate()
 		
 		# Position
-		_spawn_marker.progress_ratio = randf()
-		var position := _spawn_marker.position
+		spawn_location.progress_ratio = randf()
+		var position := spawn_location.position
 		
 		# Direction
-		var direction_rotation = _spawn_marker.rotation + PI / 2
+		var direction_rotation = spawn_location.rotation + PI / 2
 		direction_rotation += randf_range(-PI / 4, PI / 4)
-		var direction := Vector2(1, 0).rotated(direction_rotation)
+		var direction := Vector2.RIGHT.rotated(direction_rotation)
 		
 		# Spawn
 		mouse.hit.connect(_on_mouse_hit)
 		mouse.score_added.connect(_add_score)
 		mouse.start(position, direction, start_mice_scale)
-		_mice.add_child(mouse)
+		mice.add_child(mouse)
 
 
 func _add_score(score_to_add: int) -> void:
@@ -78,10 +101,27 @@ func _on_mouse_hit(hit_position: Vector2, scale: int, count: int, run_from = nul
 		mouse.hit.connect(_on_mouse_hit)
 		mouse.score_added.connect(_add_score)
 		mouse.start(hit_position, spawn_direction, scale - 1)
-		_mice.call_deferred("add_child", mouse)
+		mice.call_deferred("add_child", mouse)
 
 
 func _on_player_hit() -> void:
 	GameManager.take_life()
 	hud.change_lives(GameManager.lives)
 	shake_camera_2d.small_shake()
+	
+	if GameManager.lives <= 0:
+		_end_game()
+
+
+func _on_hud_game_resumed() -> void:
+	_pause_game(false)
+
+
+func _on_hud_game_quit() -> void:
+	_pause_game(false)
+	GameManager.save_high_score()
+	GameManager.main_scene.load_scene(Main.Scene.MainMenu)
+
+
+func _on_power_up_timer_timeout() -> void:
+	pass

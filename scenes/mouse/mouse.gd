@@ -9,7 +9,7 @@ signal score_added(score: int)
 @export var score_multiplier := 1
 @export_category("Movement")
 @export var min_speed := 50.0
-@export var max_speed := 150.0
+@export var max_speed := 125.0
 @export_category("Rotation")
 @export var min_rotation := PI / 2
 @export var max_rotation := TAU
@@ -31,6 +31,7 @@ func _ready() -> void:
 	collision_shape_2d.rotate(new_rotation)
 	_change_scale(_scale)
 	_spawn_animation()
+	_adapt_difficulty()
 
 
 func start(start_position: Vector2, start_direction: Vector2, new_scale: int) -> void:
@@ -72,6 +73,12 @@ func _change_scale(new_scale: int) -> void:
 	
 	# Scale particles
 	gpu_particles_2d.apply_scale(Vector2(new_scale, new_scale))
+	
+	
+func _adapt_difficulty() -> void:
+	if GameManager.difficulty == GameManager.Difficulty.Hard:
+		min_speed *= 1.5
+		max_speed *= 1.5 
 
 
 func _spawn_animation() -> void:
@@ -80,5 +87,4 @@ func _spawn_animation() -> void:
 
 
 func _on_gpu_particles_2d_finished() -> void:
-	print("Mouse died!", self)
 	queue_free()

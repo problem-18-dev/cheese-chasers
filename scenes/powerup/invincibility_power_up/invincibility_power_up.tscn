@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://5sh1tnlhy52g"]
+
+[ext_resource type="PackedScene" uid="uid://dx12c4v6omgv5" path="res://scenes/powerup/power_up.tscn" id="1_adsst"]
+[ext_resource type="Script" uid="uid://pgmanitq5r8n" path="res://scenes/powerup/invincibility_power_up/invincibility_power_up.gd" id="2_8jn03"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_adsst"]
+radius = 16.0
+
+[node name="InvincibilityPowerUp" unique_id=1321028658 instance=ExtResource("1_adsst")]
+script = ExtResource("2_8jn03")
+type = "Invincibility"
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=58376532]
+shape = SubResource("CircleShape2D_adsst")
+
+[node name="Label" type="Label" parent="." index="3" unique_id=429771538]
+offset_left = -19.0
+offset_top = -18.0
+offset_right = 21.0
+offset_bottom = 18.0
+theme_override_font_sizes/font_size = 32
+text = " IN"

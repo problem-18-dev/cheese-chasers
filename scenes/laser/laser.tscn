@@ -29,7 +29,7 @@ size = Vector2(20, 16)
 [node name="Laser" unique_id=1334999182 instance=ExtResource("1_j8ec3")]
 collision_mask = 2
 script = ExtResource("2_bx1b7")
-speed = 225.0
+speed = 275.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="0" unique_id=1910065240]
 position = Vector2(0, 8)
@@ -52,7 +52,7 @@ texture = ExtResource("2_kfde8")
 rect = Rect2(-6, -8, 12, 16)
 
 [node name="DestroyTimer" type="Timer" parent="." index="5" unique_id=2102698245]
-wait_time = 1.75
+wait_time = 1.5
 one_shot = true
 autostart = true
 
