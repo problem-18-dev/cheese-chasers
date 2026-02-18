@@ -1,6 +1,8 @@
 extends Node
 
 
+signal double_score_enabled(duration: float)
+
 @export_category("Nodes")
 @export var player: RigidBody2D
 @export var hud: CanvasLayer
@@ -18,7 +20,7 @@ var _screen_size: Vector2
 func _ready() -> void:
 	_screen_size = get_viewport().get_visible_rect().size
 	spawn_timer.wait_time = powerup_spawn_interval
-	spawn_timer.start()
+	#spawn_timer.start()
 
 
 func _on_spawn_timer_timeout() -> void:
@@ -28,14 +30,19 @@ func _on_spawn_timer_timeout() -> void:
 	powerup.position.y = randf_range(0, _screen_size.y)
 	powerup.picked_up.connect(_on_powerup_picked_up)
 	spawn_node.add_child(powerup)
-	print("Spawning powerup at", powerup.position)
 
 
-func _on_powerup_picked_up(type: String) -> void:
+func _on_powerup_picked_up(type: String, duration: float) -> void:
 	match (type):
 		"Invincibility":
-			print("Giving player invincibility")
-			print("Adjusting HUD")
+			player.make_invincible(duration)
+			print("Adjusting HUD for invincibility")
 			pass
+		"Score":
+			double_score_enabled.emit(duration)
+			print("Adjusting HUD for score")
+		"Shooting":
+			player.increase_shooting_speed(duration)
+			print("Adjusting HUD for shooting")
 		_:
 			assert(false, "Invalid powerup type picked up")

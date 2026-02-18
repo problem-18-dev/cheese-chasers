@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://fxwrc0ikq7we"]
+
+[ext_resource type="PackedScene" uid="uid://cjn5v33k7elr5" path="res://scenes/projectile/projectile.tscn" id="1_cwjnd"]
+[ext_resource type="Script" uid="uid://bnx3m1u733eri" path="res://scenes/player/laser/player_laser.gd" id="2_lgwhk"]
+[ext_resource type="Texture2D" uid="uid://ecs8ydjmi167" path="res://assets/sprites/player/player_laser.png" id="3_82gdg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwjnd"]
+size = Vector2(20, 16)
+
+[sub_resource type="Gradient" id="Gradient_t8015"]
+offsets = PackedFloat32Array(0, 0.33962265)
+colors = PackedColorArray(0.039215688, 1, 0.32156864, 1, 0.68992, 0.99999994, 0.75838834, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2dulq"]
+gradient = SubResource("Gradient_t8015")
+
+[sub_resource type="Curve" id="Curve_lw0th"]
+_data = [Vector2(0, 0.5016429), 0.0, 2.8104074, 0, 0, Vector2(0.24709302, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tldn6"]
+curve = SubResource("Curve_lw0th")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cwjnd"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_tldn6")
+color_ramp = SubResource("GradientTexture1D_2dulq")
+
+[node name="PlayerLaser" unique_id=1334999182 node_paths=PackedStringArray("gpu_particles_2d") instance=ExtResource("1_cwjnd")]
+collision_mask = 2
+script = ExtResource("2_lgwhk")
+gpu_particles_2d = NodePath("GPUParticles2D")
+speed = 275.0
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
+shape = SubResource("RectangleShape2D_cwjnd")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="1" unique_id=1790842771]
+rect = Rect2(-6, -8, 12, 16)
+
+[node name="RightSprite" type="Sprite2D" parent="." index="2" unique_id=1961896349]
+position = Vector2(8, 0)
+scale = Vector2(1.25, 1)
+texture = ExtResource("3_82gdg")
+
+[node name="LeftSprite" type="Sprite2D" parent="." index="3" unique_id=1826896527]
+position = Vector2(-8, 0)
+scale = Vector2(1.25, 1)
+texture = ExtResource("3_82gdg")
+
+[node name="GPUParticles2D" parent="." index="4" unique_id=1921395877]
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_cwjnd")

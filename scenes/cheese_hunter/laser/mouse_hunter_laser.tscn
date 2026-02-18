@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b4tew1ek8ou00"]
+
+[ext_resource type="PackedScene" uid="uid://cjn5v33k7elr5" path="res://scenes/projectile/projectile.tscn" id="1_onk6l"]
+[ext_resource type="Texture2D" uid="uid://co22et5ehqjnm" path="res://assets/sprites/cheese_hunter/cheese_hunter_laser.png" id="2_2ijoh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mxl03"]
+size = Vector2(3, 16)
+
+[sub_resource type="Gradient" id="Gradient_onk6l"]
+offsets = PackedFloat32Array(0, 0.33962265)
+colors = PackedColorArray(1, 0, 0.30588236, 1, 1, 0.31504145, 0.40498093, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ijoh"]
+gradient = SubResource("Gradient_onk6l")
+
+[sub_resource type="Curve" id="Curve_mxl03"]
+_data = [Vector2(0, 0.5016429), 0.0, 2.8104074, 0, 0, Vector2(0.24709302, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_w207x"]
+curve = SubResource("Curve_mxl03")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h6p11"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_w207x")
+color_ramp = SubResource("GradientTexture1D_2ijoh")
+
+[node name="MouseHunterLaser" unique_id=1334999182 instance=ExtResource("1_onk6l")]
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
+shape = SubResource("RectangleShape2D_mxl03")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="1" unique_id=1790842771]
+rect = Rect2(-2, -8, 4, 16)
+
+[node name="GPUParticles2D" parent="." index="2" unique_id=1921395877]
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_h6p11")
+
+[node name="LaserSprite" type="Sprite2D" parent="." index="4" unique_id=1468160661]
+texture = ExtResource("2_2ijoh")

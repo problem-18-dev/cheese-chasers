@@ -7,6 +7,8 @@ signal game_quit
 @onready var stats: Control = $MarginContainer/Stats
 @onready var score_label: Label = $MarginContainer/Stats/ScoreLabel
 @onready var lives_label: Label = $MarginContainer/Stats/LivesLabel
+@onready var double_score_label: Label = $MarginContainer/Stats/DoubleScoreLabel
+
 @onready var game_over_container: VBoxContainer = $GameOverContainer
 @onready var high_score_label: Label = $GameOverContainer/HighScoreLabel
 @onready var pause_container: VBoxContainer = $PauseContainer
@@ -20,6 +22,16 @@ func change_lives(new_lives: int) -> void:
 
 func change_score(new_score: int) -> void:
 	score_label.text = "%06d" % new_score
+	
+
+func toggle_double_score(enabled: bool) -> void:
+	if enabled:
+		double_score_label.show()
+		return
+	
+	double_score_label.hide()
+
+
 
 
 func end_game() -> void:

@@ -28,6 +28,17 @@ mouse_filter = 2
 [node name="Stats" type="Control" parent="MarginContainer" unique_id=121316848]
 layout_mode = 2
 
+[node name="DoubleScoreLabel" type="Label" parent="MarginContainer/Stats" unique_id=2037851791]
+visible = false
+layout_mode = 0
+offset_left = 552.0
+offset_right = 568.0
+offset_bottom = 18.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = ExtResource("1_6ca3a")
+text = "2x"
+
 [node name="ScoreLabel" type="Label" parent="MarginContainer/Stats" unique_id=1193512732]
 layout_mode = 0
 offset_left = 576.0

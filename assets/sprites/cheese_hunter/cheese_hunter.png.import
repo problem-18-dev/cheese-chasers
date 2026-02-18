@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmfpal1q5d1of"
-path="res://.godot/imported/laser_projectile.png-4842152a5bed7f0b137a484900ac0c0c.ctex"
+uid="uid://dcfoni88qptfr"
+path="res://.godot/imported/cheese_hunter.png-dedc9dbad39209fd19708c6f4220cec9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/laser_projectile.png"
-dest_files=["res://.godot/imported/laser_projectile.png-4842152a5bed7f0b137a484900ac0c0c.ctex"]
+source_file="res://assets/sprites/cheese_hunter/cheese_hunter.png"
+dest_files=["res://.godot/imported/cheese_hunter.png-dedc9dbad39209fd19708c6f4220cec9.ctex"]
 
 [params]
 

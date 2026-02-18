@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ckxfkh25r4u0s"]
+
+[ext_resource type="PackedScene" uid="uid://dx12c4v6omgv5" path="res://scenes/powerup/power_up.tscn" id="1_c8scv"]
+[ext_resource type="Script" uid="uid://cjeoa6nesc0ua" path="res://scenes/powerup/score_power_up/score_power_up.gd" id="2_feojx"]
+[ext_resource type="Texture2D" uid="uid://bscqoggivkvga" path="res://assets/sprites/power_ups/score_power_up.png" id="3_xn2ps"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xn2ps"]
+atlas = ExtResource("3_xn2ps")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wknxd"]
+atlas = ExtResource("3_xn2ps")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8evmn"]
+atlas = ExtResource("3_xn2ps")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_feojx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xn2ps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wknxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8evmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wknxd")
+}],
+"loop": true,
+"name": &"Fade",
+"speed": 12.0
+}]
+
+[node name="ScorePowerUp" unique_id=1321028658 instance=ExtResource("1_c8scv")]
+script = ExtResource("2_feojx")
+type = "Score"
+
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=1537850416]
+sprite_frames = SubResource("SpriteFrames_feojx")
+animation = &"Fade"
+
+[node name="PowerUpLifeTimer" parent="." index="2" unique_id=1353542056]
+wait_time = 10.0

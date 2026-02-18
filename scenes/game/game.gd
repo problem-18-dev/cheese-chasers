@@ -7,14 +7,14 @@ extends Node
 
 var game_started := false
 var _score := 0
+var _double_score := false
 
 @onready var _mouse_scene: PackedScene = load("res://scenes/mouse/mouse.tscn")
-@onready var spawn_location: PathFollow2D = $SpawnPath/SpawnLocation
+@onready var spawn_location: PathFollow2D = $MouseSpawnPath/MouseSpawnLocation
 @onready var hud: CanvasLayer = $HUD
 @onready var shake_camera_2d: Camera2D = $ShakeCamera2D
 @onready var mice: Node = $GameObjects/Mice
 @onready var player: RigidBody2D = $GameObjects/Player
-
 
 @onready var _total_mice := start_mice
 
@@ -23,10 +23,10 @@ func _process(_delta: float) -> void:
 	if not game_started:
 		return
 	
-	var mice_in_game := mice.get_child_count()
-	if mice_in_game <= 0:
-		_total_mice += 1
-		_spawn_mice()
+	#var mice_in_game := mice.get_child_count()
+	#if mice_in_game <= 0:
+		#_total_mice += 1
+		#_spawn_mice()
 
 
 func _input(event: InputEvent) -> void:
@@ -78,7 +78,7 @@ func _spawn_mice() -> void:
 
 
 func _add_score(score_to_add: int) -> void:
-	_score += score_to_add
+	_score += score_to_add * 2 if _double_score else score_to_add
 	GameManager.add_score(score_to_add)
 	hud.change_score(GameManager.score)
 
@@ -125,3 +125,11 @@ func _on_hud_game_quit() -> void:
 
 func _on_power_up_timer_timeout() -> void:
 	pass
+
+
+func _on_power_ups_manager_double_score_enabled(duration: float) -> void:
+	_double_score = true
+	hud.toggle_double_score(true)
+	await get_tree().create_timer(duration).timeout
+	_double_score = false
+	hud.toggle_double_score(false)

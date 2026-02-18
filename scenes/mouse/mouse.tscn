@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://22uxqujkorfl"]
 
-[ext_resource type="Texture2D" uid="uid://dd8gj36fjjl3h" path="res://assets/sprites/mouse.png" id="1_61wxo"]
+[ext_resource type="Texture2D" uid="uid://dd8gj36fjjl3h" path="res://assets/sprites/mouse/mouse.png" id="1_61wxo"]
 [ext_resource type="Script" uid="uid://cx4bx2glg0tfn" path="res://scenes/mouse/mouse.gd" id="1_lrwgp"]
 
 [sub_resource type="Gradient" id="Gradient_lrwgp"]
