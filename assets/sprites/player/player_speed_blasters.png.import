@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://md0wsdjm3c4l"
-path="res://.godot/imported/mouse.png-f7ea9ee9945ddc321f1debeab7ee22c1.ctex"
+uid="uid://ch7txapobxne0"
+path="res://.godot/imported/player_speed_blasters.png-ce651b7de608cfd0c0675a44c2b6b7da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/mouse/mouse.png"
-dest_files=["res://.godot/imported/mouse.png-f7ea9ee9945ddc321f1debeab7ee22c1.ctex"]
+source_file="res://assets/sprites/player/player_speed_blasters.png"
+dest_files=["res://.godot/imported/player_speed_blasters.png-ce651b7de608cfd0c0675a44c2b6b7da.ctex"]
 
 [params]
 

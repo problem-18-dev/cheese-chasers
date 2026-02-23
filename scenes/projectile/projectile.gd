@@ -21,15 +21,21 @@ func _physics_process(delta: float) -> void:
 func start(start_position: Vector2, start_rotation: float) -> void:
 	global_position = start_position
 	rotation = start_rotation
+	
 
-
-func _on_body_entered(_body: Node2D) -> void:
-	pass
-
-
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+func take_damage() -> void:
 	queue_free()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	body.take_damage()
+	take_damage()
+
+
+func _on_area_entered(area: Area2D) -> void:
+	area.take_damage()
+	take_damage()
 
 
 func _on_destroy_timer_timeout() -> void:
-	queue_free()
+	take_damage()

@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://chvovwj01dkn5"]
 
-[ext_resource type="Texture2D" uid="uid://bljggt1i8hgs2" path="res://assets/sprites/player/player.png" id="1_8afob"]
+[ext_resource type="Texture2D" uid="uid://brdpw5trkmltt" path="res://assets/sprites/player/player.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://doiaxmcio4s32" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="PackedScene" uid="uid://fxwrc0ikq7we" path="res://scenes/player/laser/player_laser.tscn" id="2_lvxji"]
-[ext_resource type="Texture2D" uid="uid://dlskdq61rhso6" path="res://assets/sprites/player/player_shield.png" id="4_lvxji"]
+[ext_resource type="PackedScene" uid="uid://bt5mb73rhpu30" path="res://scenes/player/laser/player_blue_laser.tscn" id="3_75vfm"]
+[ext_resource type="Texture2D" uid="uid://dw55gnbvq4nmp" path="res://assets/sprites/player/player_shield.png" id="4_lvxji"]
+[ext_resource type="Texture2D" uid="uid://ch7txapobxne0" path="res://assets/sprites/player/player_speed_blasters.png" id="4_p47bc"]
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25373137), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_lvxji"]
+[sub_resource type="CurveTexture" id="CurveTexture_75vfm"]
 curve = SubResource("Curve_gmlin")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gmlin"]
@@ -18,8 +20,9 @@ spread = 180.0
 initial_velocity_min = 25.0
 initial_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
-scale_max = 2.5
-scale_curve = SubResource("CurveTexture_lvxji")
+scale_min = 2.0
+scale_max = 3.5
+scale_curve = SubResource("CurveTexture_75vfm")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8afob"]
 height = 24.0
@@ -38,6 +41,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ThrustParticles:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_lvxji"]
 resource_name = "take_damage"
@@ -54,12 +81,66 @@ tracks/0/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ThrustParticles:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p47bc"]
 _data = {
 &"RESET": SubResource("Animation_gmlin"),
 &"take_damage": SubResource("Animation_lvxji")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qek5x"]
+atlas = ExtResource("4_lvxji")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
+atlas = ExtResource("4_lvxji")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p47bc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qek5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gtgg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
+atlas = ExtResource("4_p47bc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
+atlas = ExtResource("4_p47bc")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
 atlas = ExtResource("1_8afob")
@@ -73,6 +154,20 @@ region = Rect2(16, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 0.5,
+"texture": SubResource("AtlasTexture_75vfm")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_0owmy")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_75vfm")
+}],
+"loop": false,
+"name": &"Fast",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_lvxji")
 }, {
 "duration": 1.5,
@@ -82,13 +177,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_lvxji")
 }],
 "loop": false,
-"name": &"Shoot",
+"name": &"Normal",
 "speed": 10.0
 }]
 
 [sub_resource type="Gradient" id="Gradient_lvxji"]
 offsets = PackedFloat32Array(0, 0.10062893, 0.20440252, 0.3490566)
-colors = PackedColorArray(1, 0.18039216, 0.30588236, 1, 1, 0.49803922, 0.30588236, 1, 1, 0.7294118, 0.30588236, 1, 1, 0.9098039, 0.30588236, 1)
+colors = PackedColorArray(0.9254902, 0.39607844, 0.30588236, 1, 0.88235295, 0.49803922, 0.30588236, 1, 0.9098039, 0.7294118, 0.30588236, 1, 0.9098039, 0.9098039, 0.30588236, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_p47bc"]
 gradient = SubResource("Gradient_lvxji")
@@ -111,11 +206,11 @@ initial_velocity_max = 32.0
 radial_velocity_min = -20.000021
 radial_velocity_max = -10.000022
 gravity = Vector3(0, 0, 0)
-scale_min = 0.5
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_p47bc")
 color_ramp = SubResource("GradientTexture1D_p47bc")
 
-[node name="Player" type="RigidBody2D" unique_id=1918345498]
+[node name="Player" type="RigidBody2D" unique_id=1918345498 groups=["player"]]
 process_mode = 1
 collision_mask = 2
 lock_rotation = true
@@ -124,11 +219,13 @@ max_contacts_reported = 1
 linear_damp = 1.0
 script = ExtResource("1_dovo2")
 projectile_scene = ExtResource("2_lvxji")
+blue_projectile_scene = ExtResource("3_75vfm")
+shoot_cooldown = 0.35
 metadata/_edit_group_ = true
 
 [node name="DeathParticles" type="GPUParticles2D" parent="." unique_id=248175173]
 emitting = false
-amount = 50
+amount = 64
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_gmlin")
@@ -146,19 +243,21 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=459539170]
 libraries/ = SubResource("AnimationLibrary_p47bc")
 
-[node name="ShieldSprite" type="Sprite2D" parent="." unique_id=245006193]
+[node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=1975046824]
 visible = false
-position = Vector2(0, -1)
-scale = Vector2(3.1199985, 3.1199985)
-texture = ExtResource("4_lvxji")
+position = Vector2(0, 0.99999994)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_p47bc")
+autoplay = "default"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=433746092]
 position = Vector2(0, -3)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_75vfm")
-animation = &"Shoot"
+animation = &"Normal"
+autoplay = "Normal"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=145244302]
+[node name="ThrustParticles" type="GPUParticles2D" parent="." unique_id=145244302]
 position = Vector2(0, 9)
 amount = 512
 lifetime = 0.25

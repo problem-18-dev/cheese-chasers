@@ -107,9 +107,12 @@ func _on_mouse_hit(hit_position: Vector2, scale: int, count: int, run_from = nul
 func _on_player_hit() -> void:
 	GameManager.take_life()
 	hud.change_lives(GameManager.lives)
-	shake_camera_2d.small_shake()
+	
+	if GameManager.lives > 0:
+		shake_camera_2d.small_shake()
 	
 	if GameManager.lives <= 0:
+		shake_camera_2d.medium_shake()
 		_end_game()
 
 

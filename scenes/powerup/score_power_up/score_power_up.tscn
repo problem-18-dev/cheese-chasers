@@ -39,6 +39,7 @@ animations = [{
 [node name="ScorePowerUp" unique_id=1321028658 instance=ExtResource("1_c8scv")]
 script = ExtResource("2_feojx")
 type = "Score"
+duration = 6.0
 
 [node name="AnimatedSprite2D" parent="." index="1" unique_id=1537850416]
 sprite_frames = SubResource("SpriteFrames_feojx")

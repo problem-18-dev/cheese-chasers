@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://md0wsdjm3c4l"
-path="res://.godot/imported/mouse.png-f7ea9ee9945ddc321f1debeab7ee22c1.ctex"
+uid="uid://5fnvgaphrhws"
+path="res://.godot/imported/player_blue_laser.png-e4e7833926f5f9229d29072717da34f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/mouse/mouse.png"
-dest_files=["res://.godot/imported/mouse.png-f7ea9ee9945ddc321f1debeab7ee22c1.ctex"]
+source_file="res://assets/sprites/player/player_blue_laser.png"
+dest_files=["res://.godot/imported/player_blue_laser.png-e4e7833926f5f9229d29072717da34f8.ctex"]
 
 [params]
 

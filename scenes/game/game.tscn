@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="4_kelw5"]
 [ext_resource type="PackedScene" uid="uid://b31nlydnsaedo" path="res://managers/power_ups_manager/power_ups_manager.tscn" id="4_lfrn8"]
 [ext_resource type="PackedScene" uid="uid://5sh1tnlhy52g" path="res://scenes/powerup/shield_power_up/shield_power_up.tscn" id="5_5i0tg"]
-[ext_resource type="PackedScene" uid="uid://ckxfkh25r4u0s" path="res://scenes/powerup/score_power_up/score_power_up.tscn" id="5_87uf6"]
+[ext_resource type="PackedScene" uid="uid://ckxfkh25r4u0s" path="res://scenes/powerup/score_power_up/score_power_up.tscn" id="6_87uf6"]
 [ext_resource type="PackedScene" uid="uid://bpew4llyh0hvf" path="res://scenes/powerup/shooting_power_up/shooting_power_up.tscn" id="7_2a8rs"]
+[ext_resource type="PackedScene" uid="uid://b02wfycag8rop" path="res://managers/cheese_hunters_manager/cheese_chasers_manager.tscn" id="8_2a8rs"]
 
 [sub_resource type="Animation" id="Animation_kelw5"]
 resource_name = "intro"
@@ -60,18 +61,6 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Curve2D" id="Curve2D_87uf6"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 640, -64, 0, 0, 0, 0, 512, 64, 0, 0, 0, 0, 448, 192, 0, 0, 0, 0, 320, 256, 0, 0, 0, 0, 256, 384, 0, 0, 0, 0, 192, 448)
-}
-point_count = 6
-
-[sub_resource type="Curve2D" id="Curve2D_2a8rs"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, -64, 0, 0, 0, 0, 128, 64, 0, 0, 0, 0, 192, 192, 0, 0, 0, 0, 320, 256, 0, 0, 0, 0, 384, 384, 0, 0, 0, 0, 448, 448)
-}
-point_count = 6
-
 [node name="Game" type="Node" unique_id=539995243]
 process_mode = 3
 script = ExtResource("1_0sr1o")
@@ -90,29 +79,13 @@ autoplay = &"intro"
 player = NodePath("../GameObjects/Player")
 hud = NodePath("../HUD")
 spawn_node = NodePath("../GameObjects/PowerUps")
-powerups_to_spawn = Array[PackedScene]([ExtResource("5_87uf6"), ExtResource("5_5i0tg"), ExtResource("7_2a8rs")])
-powerup_spawn_interval = 6.0
+powerups_to_spawn = Array[PackedScene]([ExtResource("5_5i0tg"), ExtResource("6_87uf6"), ExtResource("7_2a8rs")])
+powerup_spawn_interval = 12.0
 
 [node name="MouseSpawnPath" type="Path2D" parent="." unique_id=521085597]
 curve = SubResource("Curve2D_k2up0")
 
 [node name="MouseSpawnLocation" type="PathFollow2D" parent="MouseSpawnPath" unique_id=1744936178]
-
-[node name="EnemySpawnPaths" type="Node" parent="." unique_id=462088110]
-
-[node name="EnemySpawnPath" type="Path2D" parent="EnemySpawnPaths" unique_id=932937686]
-curve = SubResource("Curve2D_87uf6")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="EnemySpawnPaths/EnemySpawnPath" unique_id=451023549]
-position = Vector2(640, -64)
-rotation = 2.3561945
-
-[node name="EnemySpawnPath2" type="Path2D" parent="EnemySpawnPaths" unique_id=1150840859]
-curve = SubResource("Curve2D_2a8rs")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="EnemySpawnPaths/EnemySpawnPath2" unique_id=1808322346]
-position = Vector2(0, -64)
-rotation = 0.7853982
 
 [node name="GameObjects" type="Node" parent="." unique_id=699163195]
 
@@ -122,21 +95,12 @@ rotation = 0.7853982
 
 [node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
 
+[node name="CheeseHuntersManager" parent="GameObjects" unique_id=246861077 instance=ExtResource("8_2a8rs")]
+spawn_interval = 10.0
+
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)
 rotation = 1.5707964
-
-[node name="ScorePowerUp" parent="GameObjects" unique_id=1321028658 instance=ExtResource("5_87uf6")]
-position = Vector2(152, 104)
-duration = 15.0
-
-[node name="ShootingPowerUp" parent="GameObjects" unique_id=971879223 instance=ExtResource("7_2a8rs")]
-position = Vector2(472, 104)
-duration = 15.0
-
-[node name="ShieldPowerUp" parent="GameObjects" unique_id=1926416922 instance=ExtResource("5_5i0tg")]
-position = Vector2(288, 224)
-duration = 15.0
 
 [connection signal="game_quit" from="HUD" to="." method="_on_hud_game_quit"]
 [connection signal="game_resumed" from="HUD" to="." method="_on_hud_game_resumed"]

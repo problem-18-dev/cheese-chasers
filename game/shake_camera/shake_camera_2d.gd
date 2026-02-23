@@ -1,5 +1,6 @@
 extends Camera2D
 
+@export_category("Properties")
 @export var decay := 0.8
 @export var max_offset := Vector2(100, 75)
 @export var max_roll := 0.1
@@ -24,6 +25,14 @@ func add_trauma(amount: float) -> void:
 
 func small_shake() -> void:
 	add_trauma(0.25)
+
+
+func medium_shake() -> void:
+	add_trauma(0.4)
+
+
+func large_shake() -> void:
+	add_trauma(0.6)
 
 
 func _shake() -> void:

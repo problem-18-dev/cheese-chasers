@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://rd6txplhemjf" path="res://managers/power_ups_manager/power_ups_manager.gd" id="1_hybs0"]
 
 [node name="PowerUpsManager" type="Node" unique_id=324818206]
+process_mode = 1
 script = ExtResource("1_hybs0")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=973070256]

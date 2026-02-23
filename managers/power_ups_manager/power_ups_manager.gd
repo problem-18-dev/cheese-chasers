@@ -20,7 +20,7 @@ var _screen_size: Vector2
 func _ready() -> void:
 	_screen_size = get_viewport().get_visible_rect().size
 	spawn_timer.wait_time = powerup_spawn_interval
-	#spawn_timer.start()
+	spawn_timer.start()
 
 
 func _on_spawn_timer_timeout() -> void:
@@ -37,7 +37,6 @@ func _on_powerup_picked_up(type: String, duration: float) -> void:
 		"Invincibility":
 			player.make_invincible(duration)
 			print("Adjusting HUD for invincibility")
-			pass
 		"Score":
 			double_score_enabled.emit(duration)
 			print("Adjusting HUD for score")

@@ -20,18 +20,27 @@ var _scale: int
 var _direction: Vector2
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 
 
 func _ready() -> void:
 	super()
+	_spawn()
+
+
+func _spawn() -> void:
+	# Rotate
 	var new_rotation := Vector2.UP.angle_to(_direction)
-	sprite_2d.rotate(new_rotation)
+	animated_sprite_2d.rotate(new_rotation)
 	collision_shape_2d.rotate(new_rotation)
-	_change_scale(_scale)
-	_spawn_animation()
+	
+	_adjust_collision_shape(_scale)
 	_adapt_difficulty()
+	
+	var tween := create_tween().set_parallel()
+	tween.tween_property(animated_sprite_2d, "scale", animated_sprite_2d.scale * _scale, 0.2)
+	tween.tween_property(gpu_particles_2d, "scale", gpu_particles_2d.scale * _scale, 0.2)
 
 
 func start(start_position: Vector2, start_direction: Vector2, new_scale: int) -> void:
@@ -48,7 +57,7 @@ func take_damage(run_from = null) -> void:
 		hit.emit(position, _scale, mice_on_death, run_from)
 	
 	_add_score()
-	sprite_2d.hide()
+	animated_sprite_2d.hide()
 	collision_shape_2d.set_deferred("disabled", true)
 	gpu_particles_2d.emitting = true 
 
@@ -58,32 +67,20 @@ func _add_score() -> void:
 	score_added.emit(score_to_add)
 
 
-func _change_scale(new_scale: int) -> void:
+func _adjust_collision_shape(new_scale: int) -> void:
 	assert(new_scale > 0, "Starting scale for mouse is invalid.")
 	
-	# Scale shape
 	var old_shape: CapsuleShape2D = collision_shape_2d.shape
 	var new_shape := CapsuleShape2D.new()
 	new_shape.radius = old_shape.radius * new_scale
 	new_shape.height = old_shape.height * new_scale
 	collision_shape_2d.set_deferred("shape", new_shape)
 	
-	# Scale texture
-	sprite_2d.apply_scale(Vector2(new_scale, new_scale))
-	
-	# Scale particles
-	gpu_particles_2d.apply_scale(Vector2(new_scale, new_scale))
-	
 	
 func _adapt_difficulty() -> void:
 	if GameManager.difficulty == GameManager.Difficulty.Hard:
 		min_speed *= 1.5
 		max_speed *= 1.5 
-
-
-func _spawn_animation() -> void:
-	var tween := create_tween()
-	tween.tween_property(sprite_2d, "scale", Vector2(2, 2) * _scale, 0.2)
 
 
 func _on_gpu_particles_2d_finished() -> void:

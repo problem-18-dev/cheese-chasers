@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b02wfycag8rop"]
+
+[ext_resource type="Script" uid="uid://cv6bgcy4qlkhl" path="res://managers/cheese_hunters_manager/cheese_chasers_manager.gd" id="1_5o584"]
+[ext_resource type="PackedScene" uid="uid://buvs7c4k1eio" path="res://scenes/cheese_hunter/follow/cheese_hunter_follow.tscn" id="2_hpa68"]
+
+[sub_resource type="Curve2D" id="Curve2D_vv41w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 64, 0, 0, 0, 0, 128, 192, 0, 0, 0, 0, 256, 64, 0, 0, 0, 0, 320, 320, 0, 0, 0, 0, 512, 192, 0, 0, 0, 0, 640, -64)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_5o584"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 704, 320, 0, 0, 0, 0, 512, 64, 0, 0, 0, 0, 256, 64, 0, 0, 0, 0, 320, 192, 0, 0, 0, 0, 64, 192, 0, 0, 0, 0, -64, 128)
+}
+point_count = 6
+
+[node name="CheeseHuntersManager" type="Node" unique_id=246861077]
+script = ExtResource("1_5o584")
+cheese_hunter_scene = ExtResource("2_hpa68")
+
+[node name="LeftPath2D" type="Path2D" parent="." unique_id=1233372713]
+curve = SubResource("Curve2D_vv41w")
+
+[node name="RightPath2D" type="Path2D" parent="." unique_id=1377259292]
+curve = SubResource("Curve2D_5o584")
+
+[node name="Timer" type="Timer" parent="." unique_id=743599453]
+wait_time = 40.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
