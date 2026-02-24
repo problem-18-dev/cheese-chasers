@@ -14,6 +14,10 @@ func _ready() -> void:
 	_start_timer()
 
 
+func stop() -> void:
+	timer.stop()
+
+
 func _start_timer() -> void:
 	var offset := randf_range(-spawn_interval_offset, spawn_interval_offset)
 	var time := spawn_interval + offset

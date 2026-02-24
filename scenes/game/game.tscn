@@ -57,7 +57,7 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_k2up0"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -24, -24, 0, 0, 0, 0, 664, -24, 0, 0, 0, 0, 664, 384, 0, 0, 0, 0, -24, 384, 0, 0, 0, 0, -24, -24)
 }
 point_count = 5
 
@@ -80,11 +80,13 @@ hud = NodePath("../HUD")
 spawn_node = NodePath("../GameObjects/PowerUps")
 powerups_to_spawn = Array[PackedScene]([ExtResource("5_5i0tg"), ExtResource("6_87uf6"), ExtResource("7_2a8rs")])
 powerup_spawn_interval = 12.0
+powerup_spawn_offset = Vector2(72, 36)
 
 [node name="MouseSpawnPath" type="Path2D" parent="." unique_id=521085597]
 curve = SubResource("Curve2D_k2up0")
 
 [node name="MouseSpawnLocation" type="PathFollow2D" parent="MouseSpawnPath" unique_id=1744936178]
+position = Vector2(-24, -24)
 
 [node name="GameObjects" type="Node" parent="." unique_id=699163195]
 
@@ -95,7 +97,7 @@ curve = SubResource("Curve2D_k2up0")
 [node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
 
 [node name="CheeseHuntersManager" parent="GameObjects" unique_id=246861077 instance=ExtResource("8_2a8rs")]
-spawn_interval = 5.0
+spawn_interval = 35.0
 
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)

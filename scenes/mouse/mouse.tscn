@@ -86,4 +86,8 @@ autoplay = "Floating"
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_lrwgp")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1208746904]
+rect = Rect2(-1, -1, 2, 2)
+
 [connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

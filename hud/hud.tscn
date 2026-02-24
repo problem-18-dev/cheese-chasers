@@ -79,13 +79,26 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "Score: "
 
-[node name="TryAgainButton" type="Button" parent="GameOverContainer" unique_id=508955847]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverContainer" unique_id=161031399]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="TryAgainButton" type="Button" parent="GameOverContainer/HBoxContainer" unique_id=1878002919]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 24
 text = "Try again"
+
+[node name="ExitButton" type="Button" parent="GameOverContainer/HBoxContainer" unique_id=1114432800]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "Exit to menu"
 
 [node name="PauseContainer" type="VBoxContainer" parent="." unique_id=1964439105]
 visible = false
@@ -125,6 +138,7 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 24
 text = "Exit to menu"
 
-[connection signal="pressed" from="GameOverContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="GameOverContainer/HBoxContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="GameOverContainer/HBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="PauseContainer/HBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="PauseContainer/HBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

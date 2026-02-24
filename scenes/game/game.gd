@@ -15,6 +15,7 @@ var _double_score := false
 @onready var shake_camera_2d: Camera2D = $ShakeCamera2D
 @onready var mice: Node = $GameObjects/Mice
 @onready var player: RigidBody2D = $GameObjects/Player
+@onready var cheese_hunters_manager: Node = $GameObjects/CheeseHuntersManager
 
 @onready var _total_mice := start_mice
 
@@ -36,16 +37,19 @@ func _input(event: InputEvent) -> void:
 
 func start_game() -> void:
 	hud.show()
+	
 	if GameManager.difficulty == GameManager.Difficulty.Hard:
 		_total_mice += 1
+		
 	_spawn_mice()
-	player.allow_movement();
+	player.allow_movement()
 	game_started = true
 
 
 func _end_game() -> void:
 	GameManager.save_high_score()
 	hud.end_game()
+	cheese_hunters_manager.stop()
 
 
 func _pause_game(should_pause := true) -> void:
@@ -53,7 +57,7 @@ func _pause_game(should_pause := true) -> void:
 		hud.pause_game()
 	else:
 		hud.continue_game()
-		
+	
 	get_tree().paused = should_pause
 
 
@@ -68,7 +72,7 @@ func _spawn_mice() -> void:
 		# Direction
 		var direction_rotation = spawn_location.rotation + PI / 2
 		direction_rotation += randf_range(-PI / 4, PI / 4)
-		var direction := Vector2.RIGHT.rotated(direction_rotation)
+		var direction := Vector2.UP.rotated(direction_rotation)
 		
 		# Spawn
 		mouse.hit.connect(_on_mouse_hit)
@@ -123,6 +127,7 @@ func _on_hud_game_resumed() -> void:
 func _on_hud_game_quit() -> void:
 	_pause_game(false)
 	GameManager.save_high_score()
+	GameManager.reset_stats()
 	GameManager.main_scene.load_scene(Main.Scene.MainMenu)
 
 

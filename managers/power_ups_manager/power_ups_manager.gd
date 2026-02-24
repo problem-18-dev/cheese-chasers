@@ -11,6 +11,7 @@ signal double_score_enabled(duration: float)
 @export_category("Spawning")
 @export var powerups_to_spawn: Array[PackedScene]
 @export_range(1.0, 100.0) var powerup_spawn_interval := 10.0
+@export var powerup_spawn_offset := Vector2(50, 25)
 
 var _screen_size: Vector2
 
@@ -23,13 +24,18 @@ func _ready() -> void:
 	spawn_timer.start()
 
 
-func _on_spawn_timer_timeout() -> void:
+func _spawn_powerup() -> void:
 	var powerup_scene = powerups_to_spawn.pick_random()
 	var powerup: PowerUp = powerup_scene.instantiate()
-	powerup.position.x = randf_range(0, _screen_size.x)
-	powerup.position.y = randf_range(0, _screen_size.y)
+	var spawn_position_x := randf_range(0 + powerup_spawn_offset.x, _screen_size.x - powerup_spawn_offset.x)
+	var spawn_position_y := randf_range(0 + powerup_spawn_offset.y, _screen_size.y - powerup_spawn_offset.y)
+	powerup.position = Vector2(spawn_position_x, spawn_position_y)
 	powerup.picked_up.connect(_on_powerup_picked_up)
 	spawn_node.add_child(powerup)
+
+
+func _on_spawn_timer_timeout() -> void:
+	_spawn_powerup()
 
 
 func _on_powerup_picked_up(type: String, duration: float) -> void:

@@ -23,6 +23,7 @@ gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 3.5
 scale_curve = SubResource("CurveTexture_75vfm")
+color = Color(1, 0.8784314, 0.3019608, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8afob"]
 height = 24.0

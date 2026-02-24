@@ -3,8 +3,10 @@ extends Area2D
 
 signal hit
 
-@export_category("Projectile")
+@export_category("Shooting")
 @export var projectile_scene: PackedScene
+@export var shooting_cooldown_min := 3.5
+@export var shooting_cooldown_max := 6.5
 @export_category("Movement")
 @export var ship_rotation_speed := 3.0
 @export var mouse_rotation_speed := 3.0
@@ -15,7 +17,10 @@ signal hit
 @onready var death_particles: GPUParticles2D = $DeathParticles
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprites: Node2D = $Sprites
-@onready var player := get_tree().get_first_node_in_group("player")
+
+
+func _ready() -> void:
+	_start_timer()
 
 
 func _process(delta: float) -> void:
@@ -33,11 +38,25 @@ func take_damage() -> void:
 	queue_free()
 
 
+func _start_timer() -> void:
+	var cooldown := randf_range(shooting_cooldown_min, shooting_cooldown_max)
+	shoot_timer.start(cooldown)
+
+
+func _get_player() -> RigidBody2D:
+	var player: RigidBody2D = get_tree().get_first_node_in_group("player")
+	return player if player else null
+
+
 func _rotate_ship(delta: float) -> void:
 	ship_sprite.rotation += ship_rotation_speed * delta
 	
 
 func _rotate_mouse(delta: float) -> void:
+	var player := _get_player()
+	if not player:
+		return
+
 	var direction_to_player := global_position.direction_to(player.position)
 	var rotation_speed := mouse_rotation_speed * delta
 	var angle := -atan2(direction_to_player.x, direction_to_player.y)
@@ -45,6 +64,10 @@ func _rotate_mouse(delta: float) -> void:
 
 
 func _on_shoot_timer_timeout() -> void:
+	var player := _get_player()
+	if not player:
+		return
+	
 	var projectile: Projectile = projectile_scene.instantiate()
 	
 	# Get angle to player
