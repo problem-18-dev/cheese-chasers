@@ -7,17 +7,19 @@ const FORCE_MULTIPLIER := 100.0
 
 @export_category("Speeds")
 @export var acceleration_force := 130.0
-@export var turn_force := 5.0
+@export var turn_force := 4.5
 
 @export_category("Effects")
-@export var shoot_recoil := 20.0
+@export var shoot_recoil := 15.0
+@export var shoot_recoil_on_powerup := 1.0
 @export var is_invincible := false
 @export var can_shoot_faster := false
 
 @export_category("Projectile")
 @export var projectile_scene: PackedScene
 @export var blue_projectile_scene: PackedScene
-@export var shoot_cooldown := 0.25
+@export var shoot_cooldown := 0.3
+@export var shoot_cooldown_on_powerup := 0.15
 
 var _can_shoot := true
 
@@ -41,19 +43,18 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 	_handle_rotation(delta)
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot") and _can_shoot:
+	if Input.is_action_pressed("shoot") and _can_shoot:
 		_shoot()
-		
+
 
 func _handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("move_forward"):
 		var force := Vector2.UP.rotated(rotation) * acceleration_force * FORCE_MULTIPLIER
-		apply_force(force * delta)
+		constant_force = force * delta
 		thrust_particles.process_material.initial_velocity_max = 64.0
 		return
 	
+	constant_force = Vector2.ZERO
 	thrust_particles.process_material.initial_velocity_max = 32.0
 
 
@@ -109,12 +110,12 @@ func _shoot() -> void:
 	animated_sprite_2d.play("Fast" if can_shoot_faster else "Normal")
 	
 	# Apply firing recoil
-	var recoil := shoot_recoil * 0.1 if can_shoot_faster else shoot_recoil
+	var recoil := shoot_recoil_on_powerup if can_shoot_faster else shoot_recoil
 	apply_impulse(recoil * Vector2.DOWN.rotated(rotation))
 	
 	# Start cooldown
 	_can_shoot = false
-	var cooldown := shoot_cooldown * 0.1 if can_shoot_faster else shoot_cooldown
+	var cooldown := shoot_cooldown_on_powerup if can_shoot_faster else shoot_cooldown
 	cooldown_timer.start(cooldown)
 
 

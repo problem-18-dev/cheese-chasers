@@ -32,8 +32,6 @@ func toggle_double_score(enabled: bool) -> void:
 	double_score_label.hide()
 
 
-
-
 func end_game() -> void:
 	background.show()
 	high_score_label.text += str(GameManager.score)

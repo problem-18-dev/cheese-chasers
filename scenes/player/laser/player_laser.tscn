@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fxwrc0ikq7we"]
 
 [ext_resource type="PackedScene" uid="uid://cjn5v33k7elr5" path="res://scenes/projectile/projectile.tscn" id="1_cwjnd"]
+[ext_resource type="Script" uid="uid://bj3dkaiy2swjb" path="res://scenes/player/laser/player_laser.gd" id="2_53row"]
 [ext_resource type="Texture2D" uid="uid://ecs8ydjmi167" path="res://assets/sprites/player/player_laser.png" id="3_82gdg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cwjnd"]
@@ -33,9 +34,10 @@ scale_max = 1.5
 scale_curve = SubResource("CurveTexture_tldn6")
 color_ramp = SubResource("GradientTexture1D_2dulq")
 
-[node name="PlayerLaser" unique_id=1334999182 instance=ExtResource("1_cwjnd")]
+[node name="PlayerLaser" unique_id=1334999182 groups=["friendly_projectiles"] instance=ExtResource("1_cwjnd")]
 collision_mask = 6
-speed = 225.0
+script = ExtResource("2_53row")
+speed = 300.0
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
 shape = SubResource("RectangleShape2D_cwjnd")

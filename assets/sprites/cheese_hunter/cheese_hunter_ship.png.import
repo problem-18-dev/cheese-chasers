@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbwfipcj6iqhw"
-path="res://.godot/imported/cheese_hunter.png-dedc9dbad39209fd19708c6f4220cec9.ctex"
+uid="uid://couxtjljin8mb"
+path="res://.godot/imported/cheese_hunter_ship.png-e66ebbf1c1c5753131ff10849769c5ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cheese_hunter/cheese_hunter.png"
-dest_files=["res://.godot/imported/cheese_hunter.png-dedc9dbad39209fd19708c6f4220cec9.ctex"]
+source_file="res://assets/sprites/cheese_hunter/cheese_hunter_ship.png"
+dest_files=["res://.godot/imported/cheese_hunter_ship.png-e66ebbf1c1c5753131ff10849769c5ff.ctex"]
 
 [params]
 

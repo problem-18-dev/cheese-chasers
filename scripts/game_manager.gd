@@ -60,4 +60,5 @@ func load_high_score():
 
 
 func restart_game() -> void:
+	reset_stats()
 	main_scene.load_scene(Main.Scene.Game)

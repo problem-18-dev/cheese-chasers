@@ -23,10 +23,10 @@ func _process(_delta: float) -> void:
 	if not game_started:
 		return
 	
-	#var mice_in_game := mice.get_child_count()
-	#if mice_in_game <= 0:
-		#_total_mice += 1
-		#_spawn_mice()
+	var mice_in_game := mice.get_child_count()
+	if mice_in_game <= 0:
+		_total_mice += 1
+		_spawn_mice()
 
 
 func _input(event: InputEvent) -> void:

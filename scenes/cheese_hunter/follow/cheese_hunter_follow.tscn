@@ -10,6 +10,5 @@ loop = false
 script = ExtResource("1_5ipao")
 
 [node name="CheeseHunter" parent="." unique_id=1560448596 instance=ExtResource("1_57lhy")]
-rotation_speed = 2.5
 
 [connection signal="hit" from="CheeseHunter" to="." method="_on_cheese_hunter_hit"]

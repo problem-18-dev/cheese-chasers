@@ -64,7 +64,6 @@ point_count = 5
 [node name="Game" type="Node" unique_id=539995243]
 process_mode = 3
 script = ExtResource("1_0sr1o")
-start_mice = 0
 
 [node name="HUD" parent="." unique_id=440610771 instance=ExtResource("2_kelw5")]
 visible = false
@@ -96,7 +95,7 @@ curve = SubResource("Curve2D_k2up0")
 [node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
 
 [node name="CheeseHuntersManager" parent="GameObjects" unique_id=246861077 instance=ExtResource("8_2a8rs")]
-spawn_interval = 10.0
+spawn_interval = 5.0
 
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)

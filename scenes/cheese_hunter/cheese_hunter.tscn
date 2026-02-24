@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bv7wpmo34q3ei"]
 
-[ext_resource type="Texture2D" uid="uid://cbwfipcj6iqhw" path="res://assets/sprites/cheese_hunter/cheese_hunter.png" id="1_oqlph"]
 [ext_resource type="Script" uid="uid://bitbinivugtnr" path="res://scenes/cheese_hunter/cheese_hunter.gd" id="1_pqso2"]
 [ext_resource type="PackedScene" uid="uid://b4tew1ek8ou00" path="res://scenes/cheese_hunter/laser/mouse_hunter_laser.tscn" id="2_h7bfi"]
+[ext_resource type="Texture2D" uid="uid://couxtjljin8mb" path="res://assets/sprites/cheese_hunter/cheese_hunter_ship.png" id="3_h7bfi"]
+[ext_resource type="Texture2D" uid="uid://werc38o72qpp" path="res://assets/sprites/cheese_hunter/cheese_hunter_mouse.png" id="4_wyfeo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqso2"]
 radius = 16.0
@@ -34,11 +35,19 @@ projectile_scene = ExtResource("2_h7bfi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=962879025]
 shape = SubResource("CircleShape2D_pqso2")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=565176558]
-scale = Vector2(2, 2)
-texture = ExtResource("1_oqlph")
+[node name="Sprites" type="Node2D" parent="." unique_id=1665272218]
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=681587298]
+[node name="ShipSprite" type="Sprite2D" parent="Sprites" unique_id=565176558]
+scale = Vector2(2, 2)
+texture = ExtResource("3_h7bfi")
+
+[node name="MouseSprite" type="Sprite2D" parent="Sprites" unique_id=1125646127]
+rotation = -1.5707964
+scale = Vector2(2, 2)
+texture = ExtResource("4_wyfeo")
+
+[node name="Marker2D" type="Marker2D" parent="Sprites/MouseSprite" unique_id=681587298]
+position = Vector2(0, 8)
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=1092388739]
 wait_time = 7.0
