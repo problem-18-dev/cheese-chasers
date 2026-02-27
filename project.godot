@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Cheese Chasers (4.6)"
+config/name="Cheese Chasers"
 config/version="1.0"
 run/main_scene="uid://cbe6uahctmh8q"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://05drosw4of5l"
 
 [autoload]
 
@@ -37,6 +37,7 @@ enabled=PackedStringArray("res://addons/log/plugin.cfg")
 [global_group]
 
 friendly_projectiles=""
+projectiles=""
 
 [gui]
 

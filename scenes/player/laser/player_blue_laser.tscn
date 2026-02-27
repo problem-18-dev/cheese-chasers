@@ -58,3 +58,6 @@ texture = ExtResource("3_6nucq")
 [node name="GPUParticles2D" parent="." index="4" unique_id=1921395877]
 lifetime = 0.3
 process_material = SubResource("ParticleProcessMaterial_cwjnd")
+
+[node name="DestroyTimer" parent="." index="5" unique_id=999888495]
+wait_time = 1.75

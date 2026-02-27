@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6k0ory0blm80"
-path="res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"
+uid="uid://brx80iuxnf72k"
+path="res://.godot/imported/itchio-logo-textless-white.png-d87e02bc55cb11e994acd2cc6d00d4e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/power_ups/shooting_power_up.png"
-dest_files=["res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"]
+source_file="res://assets/sprites/player/itchio-logo-textless-white.png"
+dest_files=["res://.godot/imported/itchio-logo-textless-white.png-d87e02bc55cb11e994acd2cc6d00d4e0.ctex"]
 
 [params]
 

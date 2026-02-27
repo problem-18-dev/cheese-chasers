@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6k0ory0blm80"
-path="res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"
+uid="uid://ceeuoyhhxheki"
+path="res://.godot/imported/problem_18_logo.png-789764aaffabcb9af6dd9a058e06e9c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/power_ups/shooting_power_up.png"
-dest_files=["res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"]
+source_file="res://assets/sprites/problem_18_logo.png"
+dest_files=["res://.godot/imported/problem_18_logo.png-789764aaffabcb9af6dd9a058e06e9c0.ctex"]
 
 [params]
 

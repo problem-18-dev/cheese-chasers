@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bpew4llyh0hvf"]
 
 [ext_resource type="PackedScene" uid="uid://dx12c4v6omgv5" path="res://scenes/powerup/power_up.tscn" id="1_advli"]
-[ext_resource type="Texture2D" uid="uid://65gwmtpi6e7a" path="res://assets/sprites/power_ups/shooting_power_up.png" id="2_3wp6q"]
+[ext_resource type="Texture2D" uid="uid://b6k0ory0blm80" path="res://assets/sprites/power_ups/shooting_power_up.png" id="2_3wp6q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uclxf"]
 atlas = ExtResource("2_3wp6q")
@@ -37,11 +37,9 @@ animations = [{
 
 [node name="ShootingPowerUp" unique_id=1321028658 instance=ExtResource("1_advli")]
 type = "Shooting"
-duration = 4.0
+duration = 5.5
 
 [node name="AnimatedSprite2D" parent="." index="1" unique_id=1537850416]
 sprite_frames = SubResource("SpriteFrames_3wp6q")
 animation = &"Fade"
-
-[node name="PowerUpLifeTimer" parent="." index="2" unique_id=1353542056]
-wait_time = 5.0
+autoplay = "Fade"

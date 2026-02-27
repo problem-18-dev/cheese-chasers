@@ -2,9 +2,67 @@
 
 [ext_resource type="FontFile" uid="uid://bvfirxaia7qj3" path="res://assets/fonts/Tiny5-Regular.ttf" id="1_bd1bu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd1bu"]
+bg_color = Color(0.39215687, 0.39215687, 0.39215687, 1)
+skew = Vector2(0.15, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghgtn"]
+bg_color = Color(0.29411766, 0.29411766, 0.29411766, 1)
+skew = Vector2(0.15, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(1, 0.8784314, 0.3019608, 1)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6jws"]
+bg_color = Color(0.39215687, 0.39215687, 0.39215687, 1)
+skew = Vector2(0.15, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8pdf"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+skew = Vector2(0.15, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(1, 0.8784314, 0.3019608, 1)
+shadow_size = 1
+
 [resource]
 default_font = ExtResource("1_bd1bu")
 default_font_size = 16
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0.8784314, 0.3019608, 1)
+Button/colors/icon_disabled_color = Color(0.78431374, 0.78431374, 0.78431374, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 24
+Button/styles/disabled = SubResource("StyleBoxFlat_bd1bu")
+Button/styles/hover = SubResource("StyleBoxFlat_ghgtn")
+Button/styles/normal = SubResource("StyleBoxFlat_l6jws")
+Button/styles/pressed = SubResource("StyleBoxFlat_u8pdf")
 MarginContainer/constants/margin_bottom = 8
 MarginContainer/constants/margin_left = 8
 MarginContainer/constants/margin_right = 8

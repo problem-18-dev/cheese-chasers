@@ -1,11 +1,246 @@
 [gd_scene format=3 uid="uid://bni8xnw21n20m"]
 
 [ext_resource type="Script" uid="uid://c4tav8ghxhcc6" path="res://menus/main_menu/main_menu.gd" id="1_xbn2l"]
+[ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="2_1nwmw"]
+[ext_resource type="Theme" uid="uid://bisdp38mca7ob" path="res://hud/main_theme.tres" id="2_vu5tu"]
+
+[sub_resource type="Gradient" id="Gradient_lvxji"]
+offsets = PackedFloat32Array(0, 0.10062893, 0.20440252, 0.3490566)
+colors = PackedColorArray(0.9254902, 0.39607844, 0.30588236, 1, 0.88235295, 0.49803922, 0.30588236, 1, 0.9098039, 0.7294118, 0.30588236, 1, 0.9098039, 0.9098039, 0.30588236, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p47bc"]
+gradient = SubResource("Gradient_lvxji")
+
+[sub_resource type="Curve" id="Curve_lvxji"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49253732), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_p47bc"]
+curve = SubResource("Curve_lvxji")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1nwmw"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(9, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_max = 48.0
+radial_velocity_min = -20.000021
+radial_velocity_max = -10.000022
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_p47bc")
+color_ramp = SubResource("GradientTexture1D_p47bc")
+
+[sub_resource type="Animation" id="Animation_ml8bw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vu5tu"]
+resource_name = "chase_loop"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameObjects/Player:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(320.00003, -0.24999997, 0, 0.25, 0, 704, -0.6666667, -63.999996, 0, 0),
+"times": PackedFloat32Array(0, 4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameObjects/Player:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 0),
+"points": PackedFloat32Array(384.00003, -0.25, 0, 0.25, 0, 224.5, -0.2777778, 26.666668, 0.38888893, -37.333336, 170.5, -0.14608686, 12.805518, 0.29661107, -26, 3.0517578e-05, -1.0367224, 108.49997, 0, 0),
+"times": PackedFloat32Array(0, 0.8, 2.0333333, 4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameObjects/Player:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2),
+"points": PackedFloat32Array(0.7853982, -0.25, 0, 0.25, 0, 1, -0.05555555, 0, 0.61111116, 0, 0.5, -0.2777778, 0.017195659, 0.3, -0.018571312, 0.7853982, -0.6666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.53333336, 2.2, 4)
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameObjects/Player")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6, 2.4, 3.2, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [false],
+"method": &"shoot"
+}, {
+"args": [false],
+"method": &"shoot"
+}, {
+"args": [false],
+"method": &"shoot"
+}, {
+"args": [false],
+"method": &"shoot"
+}, {
+"args": [false],
+"method": &"shoot"
+}, {
+"args": [false],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1nwmw"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/VBoxContainer/DifficultyButton:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/VBoxContainer/PlayButton:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/VBoxContainer/PlayButton:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-200, 0, 0, 0.35, 1, 1, -0.35, -7.5, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/VBoxContainer/DifficultyButton:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(-250, -0.5, 0, 0.5, 0, 1, -0.13333333, -2, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/Title:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(-72, -0.24982472, -10.953852, 0.43333334, 19, 24, -0.3, 2, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/VBoxContainer/InfoScoreButton:position:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-300, -0.25, 0, 0.25, 0, 1, -0.03333333, -182, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/VBoxContainer/InfoScoreButton:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("InfoScoreLabel:position:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-350, -0.25, 0, 0.25, 0, 64, -0.03333333, -182, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("UI/VBoxContainer:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vu5tu"]
+_data = {
+&"RESET": SubResource("Animation_ml8bw"),
+&"chase_loop": SubResource("Animation_vu5tu"),
+&"fade_in": SubResource("Animation_1nwmw")
+}
 
 [node name="MainMenu" type="Node" unique_id=543187658]
 script = ExtResource("1_xbn2l")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2055991451]
+
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=574849594]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.09803922)
 
 [node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=1535443829]
 anchors_preset = 15
@@ -14,51 +249,95 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HighScoreLabel" type="Label" parent="UI/MarginContainer" unique_id=1421357877]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 16
-text = "High score: "
-
-[node name="Title" type="Label" parent="UI" unique_id=601465090]
+[node name="Title" type="RichTextLabel" parent="UI" unique_id=1877981802]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -280.0
+offset_left = -272.0
 offset_top = 24.0
-offset_right = 160.0
-offset_bottom = 96.0
+offset_right = 176.0
+offset_bottom = 96.000015
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 64
-text = "Cheese Chasers"
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[color=#ffe04d]C[/color]heese [color=#ffe04d]C[/color]hasers"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="URLs" type="Control" parent="UI" unique_id=1685384714]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=8338381]
+custom_minimum_size = Vector2(128, 0)
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 40.0
-offset_top = -60.0
-offset_right = 168.0
-offset_bottom = 22.0
+offset_left = 64.0
+offset_top = -68.0
+offset_right = 192.0
+offset_bottom = 37.0
 grow_vertical = 2
 theme_override_constants/separation = 12
+alignment = 1
 
 [node name="PlayButton" type="Button" parent="UI/VBoxContainer" unique_id=105359883]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 text = "Play"
 
 [node name="DifficultyButton" type="Button" parent="UI/VBoxContainer" unique_id=1839309570]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 toggle_mode = true
 text = "Easy
 "
 
+[node name="InfoScoreButton" type="Button" parent="UI/VBoxContainer" unique_id=1310444354]
+visible = false
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+toggle_mode = true
+text = "Controls
+"
+
+[node name="InfoScoreLabel" type="RichTextLabel" parent="." unique_id=2145564383]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -120.0
+offset_right = 191.99991
+offset_bottom = -66.0
+grow_vertical = 0
+theme = ExtResource("2_vu5tu")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[color=#ffe04d]ARROWS[/color] to move
+[color=#ffe04d]SPACE[/color] to shoot
+[color=#ffe04d]ESC[/color] to pause"
+fit_content = true
+
+[node name="GameObjects" type="Node" parent="." unique_id=2014148730]
+
+[node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("2_1nwmw")]
+position = Vector2(320.00003, 384.00003)
+rotation = 0.7853982
+
+[node name="ThrustParticles" parent="GameObjects/Player" index="7" unique_id=145244302]
+process_material = SubResource("ParticleProcessMaterial_1nwmw")
+
+[node name="Projectiles" type="Node" parent="GameObjects" unique_id=2129358460 groups=["projectiles"]]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1079530518]
+libraries/ = SubResource("AnimationLibrary_vu5tu")
+autoplay = &"fade_in"
+
 [connection signal="pressed" from="UI/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="toggled" from="UI/VBoxContainer/DifficultyButton" to="." method="_on_difficulty_button_toggled"]
+[connection signal="toggled" from="UI/VBoxContainer/InfoScoreButton" to="." method="_on_info_score_button_toggled"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+[editable path="GameObjects/Player"]

@@ -3,20 +3,25 @@ extends Node
 
 enum Difficulty { Easy, Hard }
 
+const SAVE_PATH := "user://high_score.tres"
+
 var main_scene: Main
+var save_game: HighScoreSave
 
 var high_score := 0
-var start_lives := 5
+var start_lives := 1
 var difficulty := Difficulty.Easy
 
 var score := 0
 var lives := start_lives
 
-var _save_path := "user://high_score.save"
-
 
 func _ready() -> void:
-	load_high_score()
+	if ResourceLoader.exists(SAVE_PATH):
+		save_game = ResourceLoader.load(SAVE_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+		return
+	
+	save_game = HighScoreSave.new()
 
 
 func take_life() -> void:
@@ -38,25 +43,22 @@ func reset_stats() -> void:
 
 func change_difficulty(new_difficulty: Difficulty) -> void:
 	difficulty = new_difficulty
+	
+
+func is_difficult() -> bool:
+	return difficulty == Difficulty.Hard
 
 
 func save_high_score():
-	if score <= high_score:
+	if score <= 0:
 		return
 	
-	var file := FileAccess.open(_save_path, FileAccess.WRITE)
-	file.store_var(score)
-	
-
-func load_high_score():
-	if not FileAccess.file_exists(_save_path):
-		print("Save file not found")
-		high_score = 0
-		return
-		
-	print("Save file found")
-	var file := FileAccess.open(_save_path, FileAccess.READ)
-	high_score = file.get_var()
+	var scores := save_game.high_scores.duplicate()
+	scores.append(score)
+	scores.sort()
+	scores.reverse()
+	save_game.high_scores = scores.slice(0, 3)
+	ResourceSaver.save(save_game, SAVE_PATH)
 
 
 func restart_game() -> void:

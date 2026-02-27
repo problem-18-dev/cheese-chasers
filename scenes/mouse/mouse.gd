@@ -46,11 +46,14 @@ func _spawn() -> void:
 func start(start_position: Vector2, start_direction: Vector2, new_scale: int) -> void:
 	var speed := randf_range(min_speed, max_speed)
 	
+	if GameManager.is_difficult():
+		speed *= 1.25
+	
 	position = start_position
 	linear_velocity = start_direction * speed
 	_direction = start_direction
 	_scale = new_scale
-	
+
 
 func take_damage(run_from = null) -> void:
 	if _scale > 1:
@@ -59,7 +62,9 @@ func take_damage(run_from = null) -> void:
 	_add_score()
 	animated_sprite_2d.hide()
 	collision_shape_2d.set_deferred("disabled", true)
-	gpu_particles_2d.emitting = true 
+	gpu_particles_2d.emitting = true
+	await get_tree().create_timer(gpu_particles_2d.lifetime).timeout
+	queue_free()
 
 
 func _add_score() -> void:
@@ -75,13 +80,9 @@ func _adjust_collision_shape(new_scale: int) -> void:
 	new_shape.radius = old_shape.radius * new_scale
 	new_shape.height = old_shape.height * new_scale
 	collision_shape_2d.set_deferred("shape", new_shape)
-	
-	
+
+
 func _adapt_difficulty() -> void:
 	if GameManager.difficulty == GameManager.Difficulty.Hard:
 		min_speed *= 1.5
 		max_speed *= 1.5 
-
-
-func _on_gpu_particles_2d_finished() -> void:
-	queue_free()

@@ -29,12 +29,15 @@ func _process(delta: float) -> void:
 
 
 func take_damage() -> void:
+	hit.emit()
+
+
+func die() -> void:
 	collision_shape_2d.set_deferred("disabled", true)
 	shoot_timer.stop()
 	sprites.hide()
 	death_particles.emitting = true
 	await death_particles.finished
-	hit.emit()
 	queue_free()
 
 

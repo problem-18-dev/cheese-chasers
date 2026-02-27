@@ -10,7 +10,7 @@ const FORCE_MULTIPLIER := 100.0
 @export var turn_force := 4.5
 
 @export_category("Effects")
-@export var shoot_recoil := 15.0
+@export var shoot_recoil := 10.0
 @export var shoot_recoil_on_powerup := 1.0
 @export var is_invincible := false
 @export var can_shoot_faster := false
@@ -19,7 +19,7 @@ const FORCE_MULTIPLIER := 100.0
 @export var projectile_scene: PackedScene
 @export var blue_projectile_scene: PackedScene
 @export var shoot_cooldown := 0.3
-@export var shoot_cooldown_on_powerup := 0.15
+@export var shoot_cooldown_on_powerup := 0.125
 
 var _can_shoot := true
 
@@ -43,24 +43,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 	_handle_rotation(delta)
-	if Input.is_action_pressed("shoot") and _can_shoot:
-		_shoot()
-
-
-func _handle_movement(delta: float) -> void:
-	if Input.is_action_pressed("move_forward"):
-		var force := Vector2.UP.rotated(rotation) * acceleration_force * FORCE_MULTIPLIER
-		constant_force = force * delta
-		thrust_particles.process_material.initial_velocity_max = 64.0
-		return
-	
-	constant_force = Vector2.ZERO
-	thrust_particles.process_material.initial_velocity_max = 32.0
-
-
-func _handle_rotation(delta: float) -> void:
-	var turn_direction := Input.get_axis("turn_left", "turn_right")
-	rotate(turn_direction * turn_force * delta)
+	_handle_shooting()
 
 
 func allow_movement() -> void:
@@ -80,7 +63,13 @@ func increase_shooting_speed(duration: float) -> void:
 func make_invincible(duration: float) -> void:
 	set_collision_mask_value(2, false)
 	shield_sprite.show()
-	await get_tree().create_timer(duration).timeout
+	
+	# Hacky way to make the shield blink at the end
+	# Check animationplayer
+	await get_tree().create_timer(duration - 1.5).timeout
+	animation_player.play("shield")
+	await animation_player.animation_finished
+	
 	set_collision_mask_value(2, true)
 	shield_sprite.hide()
 	collision_shape_2d.set_deferred("disabled", false)
@@ -94,7 +83,7 @@ func take_damage() -> void:
 		animation_player.play("take_damage")
 
 
-func _shoot() -> void:
+func shoot(should_wrap := true) -> void:
 	if not _can_shoot:
 		return
 	
@@ -103,7 +92,7 @@ func _shoot() -> void:
 		projectile = blue_projectile_scene.instantiate()
 	else:
 		projectile = projectile_scene.instantiate()
-	projectile.start(gun_marker_2d.global_position, rotation)
+	projectile.start(gun_marker_2d.global_position, rotation, should_wrap)
 	get_tree().get_first_node_in_group("projectiles").add_child(projectile)
 	
 	# Play shoot animation
@@ -119,6 +108,22 @@ func _shoot() -> void:
 	cooldown_timer.start(cooldown)
 
 
+func _handle_movement(delta: float) -> void:
+	if Input.is_action_pressed("move_forward"):
+		var force := Vector2.UP.rotated(rotation) * acceleration_force * FORCE_MULTIPLIER
+		constant_force = force * delta
+		thrust_particles.process_material.initial_velocity_max = 64.0
+		return
+	
+	constant_force = Vector2.ZERO
+	thrust_particles.process_material.initial_velocity_max = 32.0
+
+
+func _handle_rotation(delta: float) -> void:
+	var turn_direction := Input.get_axis("turn_left", "turn_right")
+	rotate(turn_direction * turn_force * delta)
+
+
 func _die() -> void:
 	set_process_unhandled_key_input(false)
 	set_physics_process(false)
@@ -126,6 +131,11 @@ func _die() -> void:
 	animated_sprite_2d.hide()
 	thrust_particles.emitting = false
 	death_particles.emitting = true
+
+
+func _handle_shooting() -> void:
+	if Input.is_action_pressed("shoot") and _can_shoot:
+		shoot()
 
 
 func _on_cooldown_timer_timeout() -> void:

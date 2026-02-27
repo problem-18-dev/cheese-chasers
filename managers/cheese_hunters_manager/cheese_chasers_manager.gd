@@ -1,5 +1,8 @@
 extends Node
 
+
+signal score_added(score: int)
+
 @export_category("Scene")
 @export var cheese_hunter_scene: PackedScene
 @export_category("Speed")
@@ -27,6 +30,7 @@ func _start_timer() -> void:
 func _spawn_cheese_hunter() -> void:
 	var path: Path2D = paths.pick_random()
 	var cheese_hunter: PathFollow2D = cheese_hunter_scene.instantiate()
+	cheese_hunter.score_added.connect(score_added.emit)
 	path.add_child(cheese_hunter)
 
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6k0ory0blm80"
-path="res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"
+uid="uid://bdoq5olys5q4c"
+path="res://.godot/imported/player_life.png-29394969a20b89faecfea71d22da4a50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/power_ups/shooting_power_up.png"
-dest_files=["res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"]
+source_file="res://assets/sprites/hud/lives/player_life.png"
+dest_files=["res://.godot/imported/player_life.png-29394969a20b89faecfea71d22da4a50.ctex"]
 
 [params]
 

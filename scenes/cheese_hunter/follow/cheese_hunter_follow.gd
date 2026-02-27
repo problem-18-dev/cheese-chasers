@@ -1,8 +1,12 @@
 extends PathFollow2D
 
 
+signal score_added(score: int)
+
 @export_category("Speed")
 @export var speed := 0.05
+@export_category("Score")
+@export var score_on_death := 150
 
 
 func _process(_delta: float) -> void:
@@ -15,4 +19,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_cheese_hunter_hit() -> void:
+	score_added.emit(score_on_death)
+	await $CheeseHunter.die()
 	queue_free()

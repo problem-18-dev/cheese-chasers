@@ -64,6 +64,7 @@ point_count = 5
 [node name="Game" type="Node" unique_id=539995243]
 process_mode = 3
 script = ExtResource("1_0sr1o")
+start_mice = 2
 
 [node name="HUD" parent="." unique_id=440610771 instance=ExtResource("2_kelw5")]
 visible = false
@@ -97,7 +98,7 @@ position = Vector2(-24, -24)
 [node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
 
 [node name="CheeseHuntersManager" parent="GameObjects" unique_id=246861077 instance=ExtResource("8_2a8rs")]
-spawn_interval = 35.0
+spawn_interval = 10.0
 
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)
@@ -106,4 +107,5 @@ rotation = 1.5707964
 [connection signal="game_quit" from="HUD" to="." method="_on_hud_game_quit"]
 [connection signal="game_resumed" from="HUD" to="." method="_on_hud_game_resumed"]
 [connection signal="double_score_enabled" from="PowerUpsManager" to="." method="_on_power_ups_manager_double_score_enabled"]
+[connection signal="score_added" from="GameObjects/CheeseHuntersManager" to="." method="_on_cheese_hunters_manager_score_added"]
 [connection signal="hit" from="GameObjects/Player" to="." method="_on_player_hit"]

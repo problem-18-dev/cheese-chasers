@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6k0ory0blm80"
-path="res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"
+uid="uid://cd8o00hv2ryp4"
+path="res://.godot/imported/Logo.svg-34152cd4eec55de1110685093734c1a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/power_ups/shooting_power_up.png"
-dest_files=["res://.godot/imported/shooting_power_up.png-aea89851b7868825f192c3d1d470c84a.ctex"]
+source_file="res://assets/sprites/player/Logo.svg"
+dest_files=["res://.godot/imported/Logo.svg-34152cd4eec55de1110685093734c1a5.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

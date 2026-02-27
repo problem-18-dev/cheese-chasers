@@ -4,13 +4,14 @@ extends Node
 
 signal scene_changed(scene: Scene)
 
-enum Scene { MainMenu, Game }
+enum Scene { Splash, MainMenu, Game }
 
 @export_category("Scenes")
 @export var first_scene := Scene.Game
 
 
 var scenes := {
+	Scene.Splash: "res://menus/splash/splash.tscn",
 	Scene.MainMenu: "res://menus/main_menu/main_menu.tscn",
 	Scene.Game: "res://scenes/game/game.tscn",
 }

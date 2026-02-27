@@ -31,6 +31,8 @@ process_mode = 1
 collision_layer = 2
 script = ExtResource("1_pqso2")
 projectile_scene = ExtResource("2_h7bfi")
+shooting_cooldown_min = 1.5
+shooting_cooldown_max = 4.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=962879025]
 shape = SubResource("CircleShape2D_pqso2")

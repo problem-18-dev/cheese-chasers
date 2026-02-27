@@ -58,6 +58,7 @@ radius = 6.5
 height = 22.0
 
 [node name="Mouse" type="RigidBody2D" unique_id=1683578551 groups=["enemies"]]
+process_mode = 1
 collision_layer = 2
 collision_mask = 0
 lock_rotation = true
@@ -89,5 +90,4 @@ shape = SubResource("CapsuleShape2D_lrwgp")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1208746904]
 rect = Rect2(-1, -1, 2, 2)
 
-[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

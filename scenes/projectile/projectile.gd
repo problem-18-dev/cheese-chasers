@@ -5,6 +5,8 @@ extends Area2D
 @export_category("Properties")
 @export var speed := 200.0
 
+var _wrapping := true
+
 @onready var screen_size: Vector2
 
 
@@ -14,13 +16,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	position += Vector2.UP.rotated(rotation) * speed * delta
-	position.x = wrapf(position.x, 0, screen_size.x)
-	position.y = wrapf(position.y, 0, screen_size.y)
+	if _wrapping:
+		position.x = wrapf(position.x, 0, screen_size.x)
+		position.y = wrapf(position.y, 0, screen_size.y)
 
 
-func start(start_position: Vector2, start_rotation: float) -> void:
+func start(start_position: Vector2, start_rotation: float, should_wrap := true) -> void:
 	global_position = start_position
 	rotation = start_rotation
+	_wrapping = should_wrap
 	
 
 func take_damage() -> void:

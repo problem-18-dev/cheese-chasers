@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://chvovwj01dkn5"]
 
-[ext_resource type="Texture2D" uid="uid://brdpw5trkmltt" path="res://assets/sprites/player/player.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://doiaxmcio4s32" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="PackedScene" uid="uid://fxwrc0ikq7we" path="res://scenes/player/laser/player_laser.tscn" id="2_lvxji"]
 [ext_resource type="PackedScene" uid="uid://bt5mb73rhpu30" path="res://scenes/player/laser/player_blue_laser.tscn" id="3_75vfm"]
 [ext_resource type="Texture2D" uid="uid://dw55gnbvq4nmp" path="res://assets/sprites/player/player_shield.png" id="4_lvxji"]
-[ext_resource type="Texture2D" uid="uid://ch7txapobxne0" path="res://assets/sprites/player/player_speed_blasters.png" id="4_p47bc"]
+[ext_resource type="Texture2D" uid="uid://b4a773idmt12o" path="res://assets/sprites/player/player_new_blue.png" id="5_75vfm"]
+[ext_resource type="Texture2D" uid="uid://bkikj8yp5judl" path="res://assets/sprites/player/player_new.png" id="6_75vfm"]
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25373137), 0.0, 0.0, 0, 0]
@@ -66,6 +66,34 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShieldSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_75vfm"]
+resource_name = "shield"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShieldSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_lvxji"]
 resource_name = "take_damage"
@@ -110,6 +138,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p47bc"]
 _data = {
 &"RESET": SubResource("Animation_gmlin"),
+&"shield": SubResource("Animation_75vfm"),
 &"take_damage": SubResource("Animation_lvxji")
 }
 
@@ -135,33 +164,33 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
-atlas = ExtResource("4_p47bc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
+atlas = ExtResource("5_75vfm")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
-atlas = ExtResource("4_p47bc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm80t"]
+atlas = ExtResource("5_75vfm")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
-atlas = ExtResource("1_8afob")
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
+atlas = ExtResource("6_75vfm")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
-atlas = ExtResource("1_8afob")
+[sub_resource type="AtlasTexture" id="AtlasTexture_je7p5"]
+atlas = ExtResource("6_75vfm")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_75vfm"]
 animations = [{
 "frames": [{
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_75vfm")
-}, {
-"duration": 1.5,
 "texture": SubResource("AtlasTexture_0owmy")
 }, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_fm80t")
+}, {
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_75vfm")
+"texture": SubResource("AtlasTexture_0owmy")
 }],
 "loop": false,
 "name": &"Fast",
@@ -169,13 +198,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_lvxji")
+"texture": SubResource("AtlasTexture_h17s1")
 }, {
 "duration": 1.5,
-"texture": SubResource("AtlasTexture_p47bc")
+"texture": SubResource("AtlasTexture_je7p5")
 }, {
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_lvxji")
+"texture": SubResource("AtlasTexture_h17s1")
 }],
 "loop": false,
 "name": &"Normal",
@@ -221,7 +250,7 @@ linear_damp = 1.0
 script = ExtResource("1_dovo2")
 projectile_scene = ExtResource("2_lvxji")
 blue_projectile_scene = ExtResource("3_75vfm")
-shoot_cooldown = 0.35
+shoot_cooldown_on_powerup = 0.1
 metadata/_edit_group_ = true
 
 [node name="DeathParticles" type="GPUParticles2D" parent="." unique_id=248175173]
@@ -255,7 +284,7 @@ autoplay = "default"
 position = Vector2(0, -3)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_75vfm")
-animation = &"Normal"
+animation = &"Fast"
 autoplay = "Normal"
 
 [node name="ThrustParticles" type="GPUParticles2D" parent="." unique_id=145244302]

@@ -20,7 +20,11 @@ func _process(delta: float) -> void:
 
 
 func add_trauma(amount: float) -> void:
-	_trauma = min(_trauma + amount, 1.0)
+	_trauma = min(_trauma + amount, 0.6)
+
+
+func tremor() -> void:
+	add_trauma(0.125)
 
 
 func small_shake() -> void:
@@ -32,7 +36,7 @@ func medium_shake() -> void:
 
 
 func large_shake() -> void:
-	add_trauma(0.6)
+	add_trauma(0.5)
 
 
 func _shake() -> void:

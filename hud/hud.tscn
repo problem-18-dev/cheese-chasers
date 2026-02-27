@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cy4os3dn7c6p0" path="res://hud/hud.gd" id="1_2gk58"]
 [ext_resource type="Theme" uid="uid://bisdp38mca7ob" path="res://hud/main_theme.tres" id="1_6ca3a"]
+[ext_resource type="Texture2D" uid="uid://bdoq5olys5q4c" path="res://assets/sprites/hud/lives/player_life.png" id="2_w8tcp"]
 [ext_resource type="Script" uid="uid://bqvf62d5b3mrs" path="res://hud/pause_label.gd" id="3_318vg"]
 
 [node name="HUD" type="CanvasLayer" unique_id=440610771]
@@ -28,34 +29,80 @@ mouse_filter = 2
 [node name="Stats" type="Control" parent="MarginContainer" unique_id=121316848]
 layout_mode = 2
 
-[node name="DoubleScoreLabel" type="Label" parent="MarginContainer/Stats" unique_id=2037851791]
-visible = false
-layout_mode = 0
-offset_left = 552.0
-offset_right = 568.0
+[node name="LivesContainer" type="HBoxContainer" parent="MarginContainer/Stats" unique_id=366762749]
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 16.0
+theme_override_constants/separation = 4
+
+[node name="Life" type="TextureRect" parent="MarginContainer/Stats/LivesContainer" unique_id=918914244]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_w8tcp")
+stretch_mode = 2
+
+[node name="Life2" type="TextureRect" parent="MarginContainer/Stats/LivesContainer" unique_id=168019608]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_w8tcp")
+stretch_mode = 2
+
+[node name="Life3" type="TextureRect" parent="MarginContainer/Stats/LivesContainer" unique_id=1199774794]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_w8tcp")
+stretch_mode = 2
+
+[node name="Life4" type="TextureRect" parent="MarginContainer/Stats/LivesContainer" unique_id=1473560842]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_w8tcp")
+stretch_mode = 2
+
+[node name="Life5" type="TextureRect" parent="MarginContainer/Stats/LivesContainer" unique_id=1344460401]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_w8tcp")
+stretch_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/Stats" unique_id=579280611]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="ScoreContainer" type="HBoxContainer" parent="MarginContainer/Stats" unique_id=540674783]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
 offset_bottom = 18.0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme = ExtResource("1_6ca3a")
+grow_horizontal = 0
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="DoubleScoreLabel" type="Label" parent="MarginContainer/Stats/ScoreContainer" unique_id=221864896]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8784314, 0.3019608, 1)
 text = "2x"
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer/Stats" unique_id=1193512732]
-layout_mode = 0
-offset_left = 576.0
-offset_right = 624.0
-offset_bottom = 18.0
+[node name="ScoreLabel" type="Label" parent="MarginContainer/Stats/ScoreContainer" unique_id=1193512732]
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme = ExtResource("1_6ca3a")
 text = "000000"
-
-[node name="LivesLabel" type="Label" parent="MarginContainer/Stats" unique_id=591679253]
-layout_mode = 0
-offset_right = 52.0
-offset_bottom = 18.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Lives: 5"
 
 [node name="GameOverContainer" type="VBoxContainer" parent="." unique_id=801843904]
 visible = false
@@ -85,7 +132,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
 [node name="TryAgainButton" type="Button" parent="GameOverContainer/HBoxContainer" unique_id=1878002919]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -93,7 +140,7 @@ theme_override_font_sizes/font_size = 24
 text = "Try again"
 
 [node name="ExitButton" type="Button" parent="GameOverContainer/HBoxContainer" unique_id=1114432800]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -123,19 +170,13 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
 [node name="ContinueButton" type="Button" parent="PauseContainer/HBoxContainer" unique_id=356970682]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
 text = "Continue"
 
 [node name="ExitButton" type="Button" parent="PauseContainer/HBoxContainer" unique_id=983423372]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
 text = "Exit to menu"
 
 [connection signal="pressed" from="GameOverContainer/HBoxContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]
