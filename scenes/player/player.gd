@@ -12,7 +12,7 @@ const FORCE_MULTIPLIER := 100.0
 @export_category("Effects")
 @export var shoot_recoil := 10.0
 @export var shoot_recoil_on_powerup := 1.0
-@export var is_invincible := false
+@export var recently_got_hurt := false
 @export var can_shoot_faster := false
 
 @export_category("Projectile")
@@ -147,7 +147,7 @@ func _on_death_particles_finished() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	if is_invincible:
+	if recently_got_hurt:
 		return
 		
 	take_damage()

@@ -27,6 +27,7 @@ func _ready() -> void:
 func unload_scene() -> void:
 	if current_scene:
 		remove_child(current_scene)
+		current_scene.queue_free()
 		current_scene = null
 
 

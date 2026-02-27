@@ -18,16 +18,6 @@ var _double_score := false
 @onready var _total_mice_to_spawn := start_mice
 
 
-func _process(_delta: float) -> void:
-	if not game_started:
-		return
-	
-	var mice_in_game := mice.get_child_count()
-	if mice_in_game <= 0:
-		_total_mice_to_spawn += 1
-		_spawn_wave()
-
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		_pause_game(not get_tree().paused)
@@ -60,8 +50,6 @@ func _pause_game(should_pause := true) -> void:
 
 func _spawn_wave() -> void:
 	for i in _total_mice_to_spawn:
-		var mouse := _mouse_scene.instantiate()
-		
 		# Position
 		spawn_location.progress_ratio = randf()
 		var position := spawn_location.position
@@ -72,10 +60,7 @@ func _spawn_wave() -> void:
 		var direction := Vector2.UP.rotated(direction_rotation)
 		
 		# Spawn
-		mouse.hit.connect(_on_mouse_hit)
-		mouse.score_added.connect(_add_score)
-		mouse.start(position, direction, start_mice_scale)
-		mice.add_child(mouse)
+		_spawn_mouse(position, direction, start_mice_scale)
 
 
 func _add_score(score_to_add: int) -> void:
@@ -89,11 +74,18 @@ func _add_score(score_to_add: int) -> void:
 	hud.add_score(score_to_add)
 
 
+func _spawn_mouse(position: Vector2, direction: Vector2, scale: int) -> void:
+	var mouse := _mouse_scene.instantiate()
+	mouse.hit.connect(_on_mouse_hit)
+	mouse.score_added.connect(_add_score)
+	mouse.tree_exited.connect(_on_mouse_died)
+	mouse.start(position, direction, scale)
+	mice.call_deferred("add_child", mouse)
+
+
 func _on_mouse_hit(hit_position: Vector2, scale: int, count: int, run_from = null) -> void:
 	shake_camera_2d.tremor()
 	for i in count:
-		var mouse := _mouse_scene.instantiate()
-		
 		# Run away from player, else random direction
 		var spawn_rotation: float
 		var spawn_direction: Vector2
@@ -105,11 +97,15 @@ func _on_mouse_hit(hit_position: Vector2, scale: int, count: int, run_from = nul
 			spawn_rotation = randf_range(-PI,  PI)
 			spawn_direction = Vector2.UP.rotated(spawn_rotation)
 		
-		mouse.hit.connect(_on_mouse_hit)
-		mouse.score_added.connect(_add_score)
-		mouse.start(hit_position, spawn_direction, scale - 1)
-		mice.call_deferred("add_child", mouse)
+		_spawn_mouse(hit_position, spawn_direction, scale - 1)
 
+
+func _on_mouse_died() -> void:
+	var mice_alive := mice.get_child_count()
+	if mice_alive <= 0:
+		_total_mice_to_spawn += 1
+		_spawn_wave()
+	
 
 func _on_player_hit() -> void:
 	GameManager.take_life()

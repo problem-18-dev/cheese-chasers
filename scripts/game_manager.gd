@@ -4,16 +4,16 @@ extends Node
 enum Difficulty { Easy, Hard }
 
 const SAVE_PATH := "user://high_score.tres"
+const START_LIVES := 5
 
 var main_scene: Main
 var save_game: HighScoreSave
 
 var high_score := 0
-var start_lives := 1
 var difficulty := Difficulty.Easy
 
 var score := 0
-var lives := start_lives
+var lives := START_LIVES
 
 
 func _ready() -> void:
@@ -38,7 +38,7 @@ func add_score(new_score: int) -> void:
 
 func reset_stats() -> void:
 	score = 0
-	lives = start_lives
+	lives = START_LIVES
 
 
 func change_difficulty(new_difficulty: Difficulty) -> void:
@@ -49,7 +49,7 @@ func is_difficult() -> bool:
 	return difficulty == Difficulty.Hard
 
 
-func save_high_score():
+func save_high_score() -> void:
 	if score <= 0:
 		return
 	

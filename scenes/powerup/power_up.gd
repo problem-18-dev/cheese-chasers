@@ -4,8 +4,10 @@ extends Area2D
 
 signal picked_up(type: String, duration: float)
 
+enum Type { Score, Shield, Shooting }
+
 @export_category("Values")
-@export var type: String
+@export var type: Type
 @export var duration := 5.0
 
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D

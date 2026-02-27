@@ -36,7 +36,6 @@ func _spawn() -> void:
 	collision_shape_2d.rotate(new_rotation)
 	
 	_adjust_collision_shape(_scale)
-	_adapt_difficulty()
 	
 	var tween := create_tween().set_parallel()
 	tween.tween_property(animated_sprite_2d, "scale", animated_sprite_2d.scale * _scale, 0.2)
@@ -80,9 +79,3 @@ func _adjust_collision_shape(new_scale: int) -> void:
 	new_shape.radius = old_shape.radius * new_scale
 	new_shape.height = old_shape.height * new_scale
 	collision_shape_2d.set_deferred("shape", new_shape)
-
-
-func _adapt_difficulty() -> void:
-	if GameManager.difficulty == GameManager.Difficulty.Hard:
-		min_speed *= 1.5
-		max_speed *= 1.5 

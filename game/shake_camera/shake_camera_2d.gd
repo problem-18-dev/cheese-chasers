@@ -9,10 +9,6 @@ var _trauma := 0.0
 var _trauma_power := 2
 
 
-func _ready() -> void:
-	randomize()
-
-
 func _process(delta: float) -> void:
 	if _trauma:
 		_trauma = max(_trauma - decay * delta, 0)

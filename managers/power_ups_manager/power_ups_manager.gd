@@ -38,16 +38,11 @@ func _on_spawn_timer_timeout() -> void:
 	_spawn_powerup()
 
 
-func _on_powerup_picked_up(type: String, duration: float) -> void:
+func _on_powerup_picked_up(type: PowerUp.Type, duration: float) -> void:
 	match (type):
-		"Invincibility":
+		PowerUp.Type.Shield:
 			player.make_invincible(duration)
-			print("Adjusting HUD for invincibility")
-		"Score":
+		PowerUp.Type.Score:
 			double_score_enabled.emit(duration)
-			print("Adjusting HUD for score")
-		"Shooting":
+		PowerUp.Type.Shooting:
 			player.increase_shooting_speed(duration)
-			print("Adjusting HUD for shooting")
-		_:
-			assert(false, "Invalid powerup type picked up")
