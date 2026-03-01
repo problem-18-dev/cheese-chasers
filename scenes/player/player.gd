@@ -31,6 +31,7 @@ var _can_shoot := true
 @onready var death_particles: GPUParticles2D = $DeathParticles
 @onready var shield_sprite: AnimatedSprite2D = $ShieldSprite
 @onready var thrust_particles: GPUParticles2D = $ThrustParticles
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -44,6 +45,19 @@ func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 	_handle_rotation(delta)
 	_handle_shooting()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# If not wrapping = not ready
+	if not wrapping:
+		return
+		
+	if event.is_action_pressed("move_forward"):
+		audio_stream_player.play()
+		return
+	
+	if event.is_action_released("move_forward"):
+		audio_stream_player.stop()
 
 
 func allow_movement() -> void:
@@ -76,6 +90,9 @@ func make_invincible(duration: float) -> void:
 	
 
 func take_damage() -> void:
+	if recently_got_hurt:
+		return
+	
 	hit.emit()
 	if GameManager.lives <= 0:
 		_die()
@@ -97,6 +114,12 @@ func shoot(should_wrap := true) -> void:
 	
 	# Play shoot animation
 	animated_sprite_2d.play("Fast" if can_shoot_faster else "Normal")
+	
+	# Play audio
+	if can_shoot_faster:
+		AudioManager.play(AudioManager.SFX.PlayerShoot, randf_range(1.05, 1.15))
+	else:
+		AudioManager.play(AudioManager.SFX.PlayerShoot)
 	
 	# Apply firing recoil
 	var recoil := shoot_recoil_on_powerup if can_shoot_faster else shoot_recoil
@@ -125,6 +148,7 @@ func _handle_rotation(delta: float) -> void:
 
 
 func _die() -> void:
+	AudioManager.play(AudioManager.SFX.PlayerExplode)
 	set_process_unhandled_key_input(false)
 	set_physics_process(false)
 	collision_shape_2d.set_deferred("disabled", true)
@@ -150,5 +174,6 @@ func _on_body_entered(body: Node) -> void:
 	if recently_got_hurt:
 		return
 		
+	AudioManager.play(AudioManager.SFX.PlayerBump)
 	take_damage()
 	body.take_damage(position)

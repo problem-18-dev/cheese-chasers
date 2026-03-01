@@ -20,5 +20,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_cheese_hunter_hit() -> void:
 	score_added.emit(score_on_death)
+	AudioManager.play(AudioManager.SFX.HunterDeath, randf_range(0.6, 0.7))
 	await $CheeseHunter.die()
 	queue_free()

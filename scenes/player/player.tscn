@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dw55gnbvq4nmp" path="res://assets/sprites/player/player_shield.png" id="4_lvxji"]
 [ext_resource type="Texture2D" uid="uid://b4a773idmt12o" path="res://assets/sprites/player/player_new_blue.png" id="5_75vfm"]
 [ext_resource type="Texture2D" uid="uid://bkikj8yp5judl" path="res://assets/sprites/player/player_new.png" id="6_75vfm"]
+[ext_resource type="AudioStream" uid="uid://b75s40t3tnpwj" path="res://assets/sfx/player_thrust.ogg" id="7_0owmy"]
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25373137), 0.0, 0.0, 0, 0]
@@ -49,6 +50,18 @@ tracks/1/path = NodePath("AnimatedSprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ThrustParticles:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -226,7 +239,8 @@ linear_damp = 1.0
 script = ExtResource("1_dovo2")
 projectile_scene = ExtResource("2_lvxji")
 blue_projectile_scene = ExtResource("3_75vfm")
-shoot_cooldown_on_powerup = 0.1
+shoot_cooldown = 0.275
+shoot_cooldown_on_powerup = 0.12
 metadata/_edit_group_ = true
 
 [node name="DeathParticles" type="GPUParticles2D" parent="." unique_id=248175173]
@@ -264,12 +278,16 @@ animation = &"Fast"
 autoplay = "Normal"
 
 [node name="ThrustParticles" type="GPUParticles2D" parent="." unique_id=145244302]
-visible = false
 position = Vector2(0, 9)
 amount = 512
 lifetime = 0.25
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_lvxji")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=873051105]
+stream = ExtResource("7_0owmy")
+volume_db = -4.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="finished" from="DeathParticles" to="." method="_on_death_particles_finished"]

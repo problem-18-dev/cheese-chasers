@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c4tav8ghxhcc6" path="res://menus/main_menu/main_menu.gd" id="1_xbn2l"]
 [ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="2_1nwmw"]
 [ext_resource type="Theme" uid="uid://bisdp38mca7ob" path="res://hud/main_theme.tres" id="2_vu5tu"]
+[ext_resource type="AudioStream" uid="uid://b75s40t3tnpwj" path="res://assets/sfx/player_thrust.ogg" id="4_ml8bw"]
 
 [sub_resource type="Gradient" id="Gradient_lvxji"]
 offsets = PackedFloat32Array(0, 0.10062893, 0.20440252, 0.3490566)
@@ -46,6 +47,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_vu5tu"]
@@ -113,6 +126,18 @@ tracks/3/keys = {
 "args": [false],
 "method": &"shoot"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.99),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_1nwmw"]
@@ -254,9 +279,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -272.0
-offset_top = 24.0
+offset_top = -72.0
 offset_right = 176.0
-offset_bottom = 96.000015
+offset_bottom = 1.5258789e-05
 grow_horizontal = 2
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
@@ -286,11 +311,13 @@ alignment = 1
 [node name="PlayButton" type="Button" parent="UI/VBoxContainer" unique_id=105359883]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+disabled = true
 text = "Play"
 
 [node name="DifficultyButton" type="Button" parent="UI/VBoxContainer" unique_id=1839309570]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+disabled = true
 toggle_mode = true
 text = "Easy
 "
@@ -299,6 +326,7 @@ text = "Easy
 visible = false
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+disabled = true
 toggle_mode = true
 text = "Controls
 "
@@ -307,9 +335,9 @@ text = "Controls
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 64.0
+offset_left = -350.0
 offset_top = -120.0
-offset_right = 191.99991
+offset_right = -222.00009
 offset_bottom = -66.0
 grow_vertical = 0
 theme = ExtResource("2_vu5tu")
@@ -323,8 +351,8 @@ fit_content = true
 [node name="GameObjects" type="Node" parent="." unique_id=2014148730]
 
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("2_1nwmw")]
-position = Vector2(320.00003, 384.00003)
-rotation = 0.7853982
+position = Vector2(703.03827, 1.0456426)
+rotation = 0.7853754
 
 [node name="ThrustParticles" parent="GameObjects/Player" index="7" unique_id=145244302]
 process_material = SubResource("ParticleProcessMaterial_1nwmw")
@@ -334,6 +362,11 @@ process_material = SubResource("ParticleProcessMaterial_1nwmw")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1079530518]
 libraries/ = SubResource("AnimationLibrary_vu5tu")
 autoplay = &"fade_in"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=888388887]
+stream = ExtResource("4_ml8bw")
+volume_db = -4.0
+bus = &"SFX"
 
 [connection signal="pressed" from="UI/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="toggled" from="UI/VBoxContainer/DifficultyButton" to="." method="_on_difficulty_button_toggled"]

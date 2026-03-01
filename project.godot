@@ -20,6 +20,7 @@ config/icon="uid://05drosw4of5l"
 
 GameManager="*uid://b7cmaypj327m2"
 AudioManager="*uid://drqc3lgp86xew"
+ButtonAudioComponent="*uid://bdwtp7xxkvl3r"
 
 [display]
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c2x4i80nhsrlw" path="res://scenes/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://drqc3lgp86xew" path="res://scripts/audio_manager.gd" id="2_0wfyh"]
+[ext_resource type="AudioStream" uid="uid://b7y01mdr1tgwe" path="res://assets/sfx/space.ogg" id="3_sugp2"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o5qli"]
 particle_flag_disable_z = true
@@ -52,3 +53,10 @@ process_material = SubResource("ParticleProcessMaterial_o5qli")
 
 [node name="AudioManager" type="Node" parent="." unique_id=895173990]
 script = ExtResource("2_0wfyh")
+
+[node name="MusicManager" type="Node" parent="." unique_id=1897805864]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" unique_id=97366205]
+stream = ExtResource("3_sugp2")
+volume_db = -6.0
+autoplay = true

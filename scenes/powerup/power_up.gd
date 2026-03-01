@@ -31,6 +31,7 @@ func _on_timer_timeout() -> void:
 
 func _on_body_entered(_body: Node2D) -> void:
 	picked_up.emit(type, duration)
+	AudioManager.play(AudioManager.SFX.PowerUp)
 	power_up_life_timer.stop()
 	animation_player.stop()
 	set_process(false)

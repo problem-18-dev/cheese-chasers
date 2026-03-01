@@ -35,7 +35,6 @@ color_ramp = SubResource("GradientTexture1D_2ijoh")
 
 [node name="MouseHunterLaser" unique_id=1334999182 instance=ExtResource("1_onk6l")]
 collision_mask = 5
-speed = 215.0
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2109629548]
 shape = SubResource("RectangleShape2D_mxl03")

@@ -59,6 +59,7 @@ func take_damage(run_from = null) -> void:
 		hit.emit(position, _scale, mice_on_death, run_from)
 	
 	_add_score()
+	AudioManager.play(AudioManager.SFX.MouseDeath)
 	animated_sprite_2d.hide()
 	collision_shape_2d.set_deferred("disabled", true)
 	gpu_particles_2d.emitting = true

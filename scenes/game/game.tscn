@@ -98,11 +98,18 @@ position = Vector2(-24, -24)
 [node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
 
 [node name="CheeseHuntersManager" parent="GameObjects" unique_id=246861077 instance=ExtResource("8_2a8rs")]
-spawn_interval = 10.0
+spawn_interval = 20.0
+spawn_interval_offset = 7.5
 
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)
 rotation = 1.5707964
+acceleration_force = null
+turn_force = null
+shoot_recoil = null
+shoot_recoil_on_powerup = null
+can_shoot_faster = null
+shoot_cooldown = null
 
 [connection signal="game_quit" from="HUD" to="." method="_on_hud_game_quit"]
 [connection signal="game_resumed" from="HUD" to="." method="_on_hud_game_resumed"]

@@ -8,6 +8,7 @@ process_mode = 1
 rotates = false
 loop = false
 script = ExtResource("1_5ipao")
+speed = 0.075
 
 [node name="CheeseHunter" parent="." unique_id=1560448596 instance=ExtResource("1_57lhy")]
 

@@ -17,6 +17,7 @@ signal hit
 @onready var death_particles: GPUParticles2D = $DeathParticles
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprites: Node2D = $Sprites
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -33,6 +34,7 @@ func take_damage() -> void:
 
 
 func die() -> void:
+	audio_stream_player.stop()
 	collision_shape_2d.set_deferred("disabled", true)
 	shoot_timer.stop()
 	sprites.hide()
@@ -80,11 +82,16 @@ func _on_shoot_timer_timeout() -> void:
 	var inaccuracy := randf_range(deg_to_rad(-10.0), deg_to_rad(10.0))
 	angle_to_player += PI / 2 + inaccuracy
 	
+	AudioManager.play(AudioManager.SFX.HunterShoot, randf_range(0.6, 0.7))
+	
 	# Fire
 	projectile.start(global_position, angle_to_player)
 	get_tree().get_first_node_in_group("projectiles").add_child(projectile)
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if body.recently_got_hurt:
+		return
+	
 	body.take_damage()
 	take_damage()

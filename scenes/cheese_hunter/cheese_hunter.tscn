@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b4tew1ek8ou00" path="res://scenes/cheese_hunter/laser/mouse_hunter_laser.tscn" id="2_h7bfi"]
 [ext_resource type="Texture2D" uid="uid://couxtjljin8mb" path="res://assets/sprites/cheese_hunter/cheese_hunter_ship.png" id="3_h7bfi"]
 [ext_resource type="Texture2D" uid="uid://werc38o72qpp" path="res://assets/sprites/cheese_hunter/cheese_hunter_mouse.png" id="4_wyfeo"]
+[ext_resource type="AudioStream" uid="uid://csoe2s84ap6jk" path="res://assets/sfx/hunter.ogg" id="5_upsn3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqso2"]
 radius = 16.0
@@ -26,16 +27,61 @@ scale_max = 3.0
 scale_curve = SubResource("CurveTexture_lvxji")
 color = Color(1, 0, 0.30588236, 1)
 
+[sub_resource type="Gradient" id="Gradient_upsn3"]
+offsets = PackedFloat32Array(0, 0.5786164)
+colors = PackedColorArray(1, 0, 0.30588236, 1, 1, 0.41971192, 0.47300738, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rkj5t"]
+gradient = SubResource("Gradient_upsn3")
+
+[sub_resource type="Curve" id="Curve_upsn3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rkj5t"]
+curve = SubResource("Curve_upsn3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bckj0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 13.59
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_rkj5t")
+color_ramp = SubResource("GradientTexture1D_rkj5t")
+
 [node name="CheeseHunter" type="Area2D" unique_id=1560448596]
 process_mode = 1
 collision_layer = 2
 script = ExtResource("1_pqso2")
 projectile_scene = ExtResource("2_h7bfi")
-shooting_cooldown_min = 1.5
-shooting_cooldown_max = 4.5
+shooting_cooldown_min = 1.0
+shooting_cooldown_max = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=962879025]
 shape = SubResource("CircleShape2D_pqso2")
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1092388739]
+wait_time = 7.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=973301031]
+stream = ExtResource("5_upsn3")
+volume_db = -2.0
+autoplay = true
+bus = &"SFX"
+
+[node name="DeathParticles" type="GPUParticles2D" parent="." unique_id=886841076]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wyfeo")
+
+[node name="TraceParticles" type="GPUParticles2D" parent="." unique_id=1624038422]
+amount = 16
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_bckj0")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1665272218]
 
@@ -50,16 +96,6 @@ texture = ExtResource("4_wyfeo")
 
 [node name="Marker2D" type="Marker2D" parent="Sprites/MouseSprite" unique_id=681587298]
 position = Vector2(0, 8)
-
-[node name="ShootTimer" type="Timer" parent="." unique_id=1092388739]
-wait_time = 7.0
-
-[node name="DeathParticles" type="GPUParticles2D" parent="." unique_id=886841076]
-emitting = false
-amount = 50
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_wyfeo")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
