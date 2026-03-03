@@ -6,11 +6,11 @@ signal hit
 const FORCE_MULTIPLIER := 100.0
 
 @export_category("Speeds")
-@export var acceleration_force := 130.0
+@export var acceleration_force := 240.0
 @export var turn_force := 4.5
 
 @export_category("Effects")
-@export var shoot_recoil := 10.0
+@export var shoot_recoil := 8.5
 @export var shoot_recoil_on_powerup := 1.0
 @export var recently_got_hurt := false
 @export var can_shoot_faster := false
@@ -134,7 +134,7 @@ func shoot(should_wrap := true) -> void:
 
 func _handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("move_forward"):
-		var force := Vector2.UP.rotated(rotation) * acceleration_force * FORCE_MULTIPLIER
+		var force := -transform.y * acceleration_force * FORCE_MULTIPLIER
 		constant_force = force * delta
 		thrust_particles.process_material.initial_velocity_max = 64.0
 		return
