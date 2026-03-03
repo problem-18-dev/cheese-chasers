@@ -104,12 +104,7 @@ spawn_interval_offset = 7.5
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)
 rotation = 1.5707964
-acceleration_force = null
-turn_force = null
-shoot_recoil = null
-shoot_recoil_on_powerup = null
-can_shoot_faster = null
-shoot_cooldown = null
+shoot_cooldown = 0.3
 
 [connection signal="game_quit" from="HUD" to="." method="_on_hud_game_quit"]
 [connection signal="game_resumed" from="HUD" to="." method="_on_hud_game_resumed"]

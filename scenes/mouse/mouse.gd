@@ -4,6 +4,8 @@ extends Floater
 signal hit(position: Vector2, scale: int, mice_on_death: int, run_from: Vector2)
 signal score_added(score: int)
 
+const DEFAULT_SCALE := 3
+
 @export_category("Score")
 @export var base_score := 35
 @export var score_multiplier := 1
@@ -16,7 +18,7 @@ signal score_added(score: int)
 @export_category("Death")
 @export var mice_on_death := 2
 
-var _scale: int
+var _scale := DEFAULT_SCALE
 var _direction: Vector2
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D

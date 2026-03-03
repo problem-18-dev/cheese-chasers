@@ -18,6 +18,7 @@ signal hit
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprites: Node2D = $Sprites
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var trace_particles: GPUParticles2D = $TraceParticles
 
 
 func _ready() -> void:
@@ -38,6 +39,7 @@ func die() -> void:
 	collision_shape_2d.set_deferred("disabled", true)
 	shoot_timer.stop()
 	sprites.hide()
+	trace_particles.emitting = false
 	death_particles.emitting = true
 	await death_particles.finished
 	queue_free()
@@ -82,7 +84,7 @@ func _on_shoot_timer_timeout() -> void:
 	var inaccuracy := randf_range(deg_to_rad(-10.0), deg_to_rad(10.0))
 	angle_to_player += PI / 2 + inaccuracy
 	
-	AudioManager.play(AudioManager.SFX.HunterShoot, randf_range(0.6, 0.7))
+	AudioManager.play(AudioManager.SFX.HunterShoot, randf_range(0.35, 0.65))
 	
 	# Fire
 	projectile.start(global_position, angle_to_player)

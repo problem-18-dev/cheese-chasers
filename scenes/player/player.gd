@@ -77,7 +77,7 @@ func increase_shooting_speed(duration: float) -> void:
 func make_invincible(duration: float) -> void:
 	set_collision_mask_value(2, false)
 	shield_sprite.show()
-	
+	recently_got_hurt = true
 	# Hacky way to make the shield blink at the end
 	# Check animationplayer
 	await get_tree().create_timer(duration - 1.5).timeout
@@ -86,6 +86,7 @@ func make_invincible(duration: float) -> void:
 	
 	set_collision_mask_value(2, true)
 	shield_sprite.hide()
+	recently_got_hurt = false
 	collision_shape_2d.set_deferred("disabled", false)
 	
 
@@ -117,7 +118,7 @@ func shoot(should_wrap := true) -> void:
 	
 	# Play audio
 	if can_shoot_faster:
-		AudioManager.play(AudioManager.SFX.PlayerShoot, randf_range(1.05, 1.15))
+		AudioManager.play(AudioManager.SFX.PlayerShoot, randf_range(1.05, 1.35))
 	else:
 		AudioManager.play(AudioManager.SFX.PlayerShoot)
 	

@@ -16,6 +16,10 @@ run/main_scene="uid://cbe6uahctmh8q"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://05drosw4of5l"
 
+[audio]
+
+general/default_playback_type.web=0
+
 [autoload]
 
 GameManager="*uid://b7cmaypj327m2"

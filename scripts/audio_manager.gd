@@ -44,7 +44,7 @@ var _sound_effects := {
 }
 
 
-func play(sfx_name: SFX, pitch_scale := randf_range(0.95, 1.05)) -> void:
+func play(sfx_name: SFX, pitch_scale := randf_range(0.8, 1.2)) -> void:
 	var player := AudioStreamPlayer.new()
 	player.finished.connect(_on_player_finished.bind(player))
 	player.bus = "SFX"
