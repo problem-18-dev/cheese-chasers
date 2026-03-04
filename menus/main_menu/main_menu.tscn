@@ -5,41 +5,12 @@
 [ext_resource type="Theme" uid="uid://bisdp38mca7ob" path="res://hud/main_theme.tres" id="2_vu5tu"]
 [ext_resource type="AudioStream" uid="uid://b75s40t3tnpwj" path="res://assets/sfx/player_thrust.ogg" id="4_ml8bw"]
 
-[sub_resource type="Gradient" id="Gradient_lvxji"]
-offsets = PackedFloat32Array(0, 0.10062893, 0.20440252, 0.3490566)
-colors = PackedColorArray(0.9254902, 0.39607844, 0.30588236, 1, 0.88235295, 0.49803922, 0.30588236, 1, 0.9098039, 0.7294118, 0.30588236, 1, 0.9098039, 0.9098039, 0.30588236, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_p47bc"]
-gradient = SubResource("Gradient_lvxji")
-
-[sub_resource type="Curve" id="Curve_lvxji"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49253732), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_p47bc"]
-curve = SubResource("Curve_lvxji")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1nwmw"]
-lifetime_randomness = 0.25
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(9, 1, 1)
-direction = Vector3(0, 1, 0)
-spread = 0.0
-initial_velocity_max = 48.0
-radial_velocity_min = -20.000021
-radial_velocity_max = -10.000022
-gravity = Vector3(0, 0, 0)
-scale_max = 2.0
-scale_curve = SubResource("CurveTexture_p47bc")
-color_ramp = SubResource("GradientTexture1D_p47bc")
-
 [sub_resource type="Animation" id="Animation_ml8bw"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/VBoxContainer:modulate")
+tracks/0/path = NodePath("UI/Buttons/VBoxContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -146,7 +117,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/VBoxContainer/DifficultyButton:disabled")
+tracks/0/path = NodePath("UI/Buttons/VBoxContainer/DifficultyButton:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -158,7 +129,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/VBoxContainer/PlayButton:disabled")
+tracks/1/path = NodePath("UI/Buttons/VBoxContainer/PlayButton:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -170,7 +141,7 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/VBoxContainer/PlayButton:position:x")
+tracks/2/path = NodePath("UI/Buttons/VBoxContainer/PlayButton:position:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -181,7 +152,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UI/VBoxContainer/DifficultyButton:position:x")
+tracks/3/path = NodePath("UI/Buttons/VBoxContainer/DifficultyButton:position:x")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -203,7 +174,7 @@ tracks/4/keys = {
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("UI/VBoxContainer/InfoScoreButton:position:x")
+tracks/5/path = NodePath("UI/Buttons/VBoxContainer/InfoScoreButton:position:x")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -214,7 +185,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/VBoxContainer/InfoScoreButton:disabled")
+tracks/6/path = NodePath("UI/Buttons/VBoxContainer/InfoScoreButton:disabled")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -226,7 +197,7 @@ tracks/6/keys = {
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("InfoScoreLabel:position:x")
+tracks/7/path = NodePath("UI/Buttons/InfoScoreLabel:position:x")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -237,7 +208,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("UI/VBoxContainer:modulate")
+tracks/8/path = NodePath("UI/Buttons/VBoxContainer:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -289,32 +260,33 @@ text = "[color=#ffe04d]C[/color]heese [color=#ffe04d]C[/color]hasers"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="URLs" type="Control" parent="UI" unique_id=1685384714]
+[node name="Buttons" type="Control" parent="UI" unique_id=95689885]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=8338381]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Buttons" unique_id=8338381]
 custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 64.0
-offset_top = -68.0
+offset_top = 92.0
 offset_right = 192.0
-offset_bottom = 37.0
+offset_bottom = 197.0
 grow_vertical = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="UI/VBoxContainer" unique_id=105359883]
+[node name="PlayButton" type="Button" parent="UI/Buttons/VBoxContainer" unique_id=105359883]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 disabled = true
 text = "Play"
 
-[node name="DifficultyButton" type="Button" parent="UI/VBoxContainer" unique_id=1839309570]
+[node name="DifficultyButton" type="Button" parent="UI/Buttons/VBoxContainer" unique_id=1839309570]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 disabled = true
@@ -322,7 +294,7 @@ toggle_mode = true
 text = "Easy
 "
 
-[node name="InfoScoreButton" type="Button" parent="UI/VBoxContainer" unique_id=1310444354]
+[node name="InfoScoreButton" type="Button" parent="UI/Buttons/VBoxContainer" unique_id=1310444354]
 visible = false
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -331,33 +303,23 @@ toggle_mode = true
 text = "Controls
 "
 
-[node name="InfoScoreLabel" type="RichTextLabel" parent="." unique_id=2145564383]
+[node name="InfoScoreLabel" type="RichTextLabel" parent="UI/Buttons" unique_id=2145564383]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = -350.0
-offset_top = -120.0
+offset_top = 200.0
 offset_right = -222.00009
-offset_bottom = -66.0
+offset_bottom = 254.0
 grow_vertical = 0
 theme = ExtResource("2_vu5tu")
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[color=#ffe04d]ARROWS[/color] to move
 [color=#ffe04d]SPACE[/color] to shoot
 [color=#ffe04d]ESC[/color] to pause"
 fit_content = true
-
-[node name="GameObjects" type="Node" parent="." unique_id=2014148730]
-
-[node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("2_1nwmw")]
-position = Vector2(703.03827, 1.0456426)
-rotation = 0.7853754
-
-[node name="ThrustParticles" parent="GameObjects/Player" index="7" unique_id=145244302]
-process_material = SubResource("ParticleProcessMaterial_1nwmw")
-
-[node name="Projectiles" type="Node" parent="GameObjects" unique_id=2129358460 groups=["projectiles"]]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1079530518]
 libraries/ = SubResource("AnimationLibrary_vu5tu")
@@ -368,9 +330,17 @@ stream = ExtResource("4_ml8bw")
 volume_db = -4.0
 bus = &"SFX"
 
-[connection signal="pressed" from="UI/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="toggled" from="UI/VBoxContainer/DifficultyButton" to="." method="_on_difficulty_button_toggled"]
-[connection signal="toggled" from="UI/VBoxContainer/InfoScoreButton" to="." method="_on_info_score_button_toggled"]
+[node name="GameObjects" type="Node" parent="." unique_id=2014148730]
+
+[node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("2_1nwmw")]
+position = Vector2(703.03827, 1.0456426)
+rotation = 0.7853754
+
+[node name="Projectiles" type="Node" parent="GameObjects" unique_id=2129358460 groups=["projectiles"]]
+
+[connection signal="pressed" from="UI/Buttons/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="toggled" from="UI/Buttons/VBoxContainer/DifficultyButton" to="." method="_on_difficulty_button_toggled"]
+[connection signal="toggled" from="UI/Buttons/VBoxContainer/InfoScoreButton" to="." method="_on_info_score_button_toggled"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
 [editable path="GameObjects/Player"]

@@ -10,7 +10,7 @@ enum Type { Score, Shield, Shooting }
 @export var type: Type
 @export var duration := 5.0
 
-@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
+@onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 @onready var power_up_life_timer: Timer = $PowerUpLifeTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -37,6 +37,6 @@ func _on_body_entered(_body: Node2D) -> void:
 	set_process(false)
 	collision_shape_2d.set_deferred("disabled", false)
 	animated_sprite_2d.hide()
-	gpu_particles_2d.emitting = true
-	await gpu_particles_2d.finished
+	cpu_particles_2d.emitting = true
+	await cpu_particles_2d.finished
 	queue_free()

@@ -8,7 +8,7 @@ extends Node
 var game_started := false
 var _double_score := false
 
-@onready var _mouse_scene: PackedScene = load("res://scenes/mouse/mouse.tscn")
+@onready var _mouse_scene: PackedScene = preload("res://scenes/mouse/mouse.tscn")
 @onready var spawn_location: PathFollow2D = $MouseSpawnPath/MouseSpawnLocation
 @onready var hud: CanvasLayer = $HUD
 @onready var shake_camera_2d: Camera2D = $ShakeCamera2D

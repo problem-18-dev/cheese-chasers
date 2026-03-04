@@ -23,7 +23,7 @@ var _direction: Vector2
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
+@onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 
 
 func _ready() -> void:
@@ -41,7 +41,7 @@ func _spawn() -> void:
 	
 	var tween := create_tween().set_parallel()
 	tween.tween_property(animated_sprite_2d, "scale", animated_sprite_2d.scale * _scale, 0.2)
-	tween.tween_property(gpu_particles_2d, "scale", gpu_particles_2d.scale * _scale, 0.2)
+	tween.tween_property(cpu_particles_2d, "scale", cpu_particles_2d.scale * _scale, 0.2)
 
 
 func start(start_position: Vector2, start_direction: Vector2, new_scale: int) -> void:
@@ -64,8 +64,8 @@ func take_damage(run_from = null) -> void:
 	AudioManager.play(AudioManager.SFX.MouseDeath)
 	animated_sprite_2d.hide()
 	collision_shape_2d.set_deferred("disabled", true)
-	gpu_particles_2d.emitting = true
-	await get_tree().create_timer(gpu_particles_2d.lifetime).timeout
+	cpu_particles_2d.emitting = true
+	await get_tree().create_timer(cpu_particles_2d.lifetime).timeout
 	queue_free()
 
 

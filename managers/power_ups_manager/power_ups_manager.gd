@@ -8,8 +8,13 @@ signal double_score_enabled(duration: float)
 @export var hud: CanvasLayer
 @export var spawn_node: Node
 
+var _powerups_to_spawn: Array[PackedScene] = [
+	preload("res://scenes/powerup/score_power_up/score_power_up.tscn"),
+	preload("res://scenes/powerup/shooting_power_up/shooting_power_up.tscn"),
+	preload("res://scenes/powerup/shield_power_up/shield_power_up.tscn"),
+]
+
 @export_category("Spawning")
-@export var powerups_to_spawn: Array[PackedScene]
 @export_range(1.0, 100.0) var powerup_spawn_interval := 10.0
 @export var powerup_spawn_offset := Vector2(50, 25)
 
@@ -25,7 +30,7 @@ func _ready() -> void:
 
 
 func _spawn_powerup() -> void:
-	var powerup_scene = powerups_to_spawn.pick_random()
+	var powerup_scene = _powerups_to_spawn.pick_random()
 	var powerup: PowerUp = powerup_scene.instantiate()
 	var spawn_position_x := randf_range(0 + powerup_spawn_offset.x, _screen_size.x - powerup_spawn_offset.x)
 	var spawn_position_y := randf_range(0 + powerup_spawn_offset.y, _screen_size.y - powerup_spawn_offset.y)

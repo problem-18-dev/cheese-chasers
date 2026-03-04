@@ -3,33 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://md0wsdjm3c4l" path="res://assets/sprites/mouse/mouse.png" id="1_61wxo"]
 [ext_resource type="Script" uid="uid://cx4bx2glg0tfn" path="res://scenes/mouse/mouse.gd" id="1_lrwgp"]
 
-[sub_resource type="Gradient" id="Gradient_lrwgp"]
-offsets = PackedFloat32Array(0.006289308, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.33333334, 0.14509805, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lrwgp"]
-gradient = SubResource("Gradient_lrwgp")
-
 [sub_resource type="Curve" id="Curve_5rk6m"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.20895523), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_6vcub"]
-curve = SubResource("Curve_5rk6m")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xge16"]
-lifetime_randomness = 0.5
-particle_flag_disable_z = true
-angle_min = -49.99999
-angle_max = 50.00001
-spread = 180.0
-initial_velocity_min = 25.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 2.5
-scale_curve = SubResource("CurveTexture_6vcub")
-color_ramp = SubResource("GradientTexture1D_lrwgp")
+[sub_resource type="Gradient" id="Gradient_lrwgp"]
+offsets = PackedFloat32Array(0.006289308, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.33333334, 0.14509805, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrwgp"]
 atlas = ExtResource("1_61wxo")
@@ -67,14 +47,25 @@ max_contacts_reported = 1
 script = ExtResource("1_lrwgp")
 metadata/_edit_group_ = true
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=21523271]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=75674449]
 position = Vector2(0, -1)
 emitting = false
 amount = 48
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_xge16")
+lifetime_randomness = 0.5
+draw_order = 1
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+angle_min = -49.99999
+angle_max = 50.00001
+scale_amount_min = 2.0
+scale_amount_max = 2.5
+scale_amount_curve = SubResource("Curve_5rk6m")
+color_ramp = SubResource("Gradient_lrwgp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=261474922]
 position = Vector2(1, 0)

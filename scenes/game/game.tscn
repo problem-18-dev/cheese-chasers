@@ -5,9 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://chc3purvou568" path="res://game/shake_camera/shake_camera_2d.tscn" id="3_lfrn8"]
 [ext_resource type="PackedScene" uid="uid://chvovwj01dkn5" path="res://scenes/player/player.tscn" id="4_kelw5"]
 [ext_resource type="PackedScene" uid="uid://b31nlydnsaedo" path="res://managers/power_ups_manager/power_ups_manager.tscn" id="4_lfrn8"]
-[ext_resource type="PackedScene" uid="uid://5sh1tnlhy52g" path="res://scenes/powerup/shield_power_up/shield_power_up.tscn" id="5_5i0tg"]
-[ext_resource type="PackedScene" uid="uid://ckxfkh25r4u0s" path="res://scenes/powerup/score_power_up/score_power_up.tscn" id="6_87uf6"]
-[ext_resource type="PackedScene" uid="uid://bpew4llyh0hvf" path="res://scenes/powerup/shooting_power_up/shooting_power_up.tscn" id="7_2a8rs"]
 [ext_resource type="PackedScene" uid="uid://b02wfycag8rop" path="res://managers/cheese_hunters_manager/cheese_chasers_manager.tscn" id="8_2a8rs"]
 
 [sub_resource type="Animation" id="Animation_kelw5"]
@@ -79,7 +76,6 @@ autoplay = &"intro"
 player = NodePath("../GameObjects/Player")
 hud = NodePath("../HUD")
 spawn_node = NodePath("../GameObjects/PowerUps")
-powerups_to_spawn = Array[PackedScene]([ExtResource("5_5i0tg"), ExtResource("6_87uf6"), ExtResource("7_2a8rs")])
 powerup_spawn_interval = 12.0
 powerup_spawn_offset = Vector2(72, 36)
 
@@ -98,8 +94,8 @@ position = Vector2(-24, -24)
 [node name="Mice" type="Node" parent="GameObjects" unique_id=971192592]
 
 [node name="CheeseHuntersManager" parent="GameObjects" unique_id=246861077 instance=ExtResource("8_2a8rs")]
-spawn_interval = 20.0
-spawn_interval_offset = 7.5
+spawn_interval = 15.0
+spawn_interval_offset = 4.5
 
 [node name="Player" parent="GameObjects" unique_id=1918345498 instance=ExtResource("4_kelw5")]
 position = Vector2(-60, 180)

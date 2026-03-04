@@ -4,21 +4,22 @@ extends Area2D
 signal hit
 
 @export_category("Shooting")
-@export var projectile_scene: PackedScene
 @export var shooting_cooldown_min := 3.5
 @export var shooting_cooldown_max := 6.5
 @export_category("Movement")
 @export var ship_rotation_speed := 3.0
 @export var mouse_rotation_speed := 3.0
 
+var _projectile_scene: PackedScene = preload("res://scenes/cheese_hunter/laser/mouse_hunter_laser.tscn")
+
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var ship_sprite: Sprite2D = $Sprites/ShipSprite
 @onready var mouse_sprite: Sprite2D = $Sprites/MouseSprite
-@onready var death_particles: GPUParticles2D = $DeathParticles
+@onready var death_particles: CPUParticles2D = $DeathParticles
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprites: Node2D = $Sprites
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-@onready var trace_particles: GPUParticles2D = $TraceParticles
+@onready var trace_particles: CPUParticles2D = $TraceParticles
 
 
 func _ready() -> void:
@@ -75,7 +76,7 @@ func _on_shoot_timer_timeout() -> void:
 	if not player:
 		return
 	
-	var projectile: Projectile = projectile_scene.instantiate()
+	var projectile: Projectile = _projectile_scene.instantiate()
 	
 	# Get angle to player
 	var angle_to_player := global_position.angle_to_point(player.position)

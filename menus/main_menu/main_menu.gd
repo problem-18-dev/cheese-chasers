@@ -1,9 +1,9 @@
 extends Node
 
 
-@onready var difficulty_button: Button = $UI/VBoxContainer/DifficultyButton
-@onready var info_score_button: Button = $UI/VBoxContainer/InfoScoreButton
-@onready var info_score_label: RichTextLabel = $InfoScoreLabel
+@onready var difficulty_button: Button = $UI/Buttons/VBoxContainer/DifficultyButton
+@onready var info_score_button: Button = $UI/Buttons/VBoxContainer/InfoScoreButton
+@onready var info_score_label: RichTextLabel = $UI/Buttons/InfoScoreLabel
 
 
 
@@ -50,3 +50,7 @@ func _on_info_score_button_toggled(toggled_on: bool) -> void:
 	
 	info_score_button.text = "Controls"
 	info_score_label.text = '[color=#ffe04d]ARROWS[/color] to move\n[color=#ffe04d]SPACE[/color] to shoot\n[color=#ffe04d]ESC[/color] to pause'
+
+
+func _on_problem_18_button_pressed() -> void:
+	OS.shell_open("https://problem-18-dev.github.io")

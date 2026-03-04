@@ -16,11 +16,11 @@ const FORCE_MULTIPLIER := 100.0
 @export var can_shoot_faster := false
 
 @export_category("Projectile")
-@export var projectile_scene: PackedScene
-@export var blue_projectile_scene: PackedScene
 @export var shoot_cooldown := 0.3
 @export var shoot_cooldown_on_powerup := 0.125
 
+var _projectile_scene: PackedScene = preload("res://scenes/player/laser/player_laser.tscn")
+var _blue_projectile_scene: PackedScene = preload("res://scenes/player/laser/player_blue_laser.tscn")
 var _can_shoot := true
 
 @onready var cooldown_timer: Timer = $CooldownTimer
@@ -30,7 +30,7 @@ var _can_shoot := true
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var death_particles: GPUParticles2D = $DeathParticles
 @onready var shield_sprite: AnimatedSprite2D = $ShieldSprite
-@onready var thrust_particles: GPUParticles2D = $ThrustParticles
+@onready var thrust_particles: CPUParticles2D = $ThrustParticles
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
@@ -107,9 +107,9 @@ func shoot(should_wrap := true) -> void:
 	
 	var projectile: Projectile
 	if can_shoot_faster:
-		projectile = blue_projectile_scene.instantiate()
+		projectile = _blue_projectile_scene.instantiate()
 	else:
-		projectile = projectile_scene.instantiate()
+		projectile = _projectile_scene.instantiate()
 	projectile.start(gun_marker_2d.global_position, rotation, should_wrap)
 	get_tree().get_first_node_in_group("projectiles").add_child(projectile)
 	
@@ -136,11 +136,11 @@ func _handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("move_forward"):
 		var force := -transform.y * acceleration_force * FORCE_MULTIPLIER
 		constant_force = force * delta
-		thrust_particles.process_material.initial_velocity_max = 64.0
+		thrust_particles.initial_velocity_max = 64.0
 		return
 	
 	constant_force = Vector2.ZERO
-	thrust_particles.process_material.initial_velocity_max = 32.0
+	thrust_particles.initial_velocity_max = 32.0
 
 
 func _handle_rotation(delta: float) -> void:
